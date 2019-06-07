@@ -127,6 +127,7 @@ STATICFILES_DIRS = [
     '/data/wwwroot/Nope/static',
 ]
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = '/data/wwwroot/Nope/static/'
 
 #添加媒体文件夹，用于盛放上传的文件
 MEDIA_URL = '/media/'
