@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include,re_path
+from django.conf.urls.static import static
 #导入静态文件
 from django.views.static import serve
 #导入配置文件上的配置
@@ -31,4 +32,4 @@ urlpatterns = [
     path('s/', views.search, name="search"),
     path('show-<int:sid>', views.show, name="show"),
     path('list-<int:lid>', views.list ,name="list"),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
