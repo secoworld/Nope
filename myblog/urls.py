@@ -30,5 +30,5 @@ urlpatterns = [
     path('tags/<tag>', views.tags, name="tags"),
     path('s/', views.search, name="search"),
     path('show-<int:sid>', views.show, name="show"),
-    path('list-<int:lid>', views.list ,name="list")
+    path('list-<int:lid>', views.list ,name="list"),
 ]
