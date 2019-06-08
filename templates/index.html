@@ -100,7 +100,7 @@
                 <ol class="hot-list">
 
                     {% for h in hot %}
-                    <li><a href="{% url 'index' %}show-{{ h.id }}.html" title="{{ h.title }}">{{ h.title }}</a></li>
+                    <li><a href="{% url 'index' %}show-{{ h.id }}" title="{{ h.title }}">{{ h.title }}</a></li>
                     {% endfor %}
 
                 </ol>

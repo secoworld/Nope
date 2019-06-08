@@ -6,14 +6,14 @@
         <li>
             <div class="img">
 
-                <a href="{% url 'index' %}show-{{ r.id }}.html"
+                <a href="{% url 'index' %}show-{{ r.id }}"
                    title="{{ r.title }}"><img
                         src="{% url 'index' %}media/{{ r.img }}"
                         srcset="{% url 'index' %}media/{{ r.img }}"
                         alt="" class="wp-post-image" width="120"
                         height="80"/></a>
             </div>
-            <a href="{% url 'index' %}show-{{ r.id }}.html" title="{{ r.title }}"
+            <a href="{% url 'index' %}show-{{ r.id }}" title="{{ r.title }}"
                target="_blank" class="title">{{ r.title }}</a>
         </li>
         {% endfor %}
@@ -25,7 +25,7 @@
 <section class="widget post-right-item"><h4 class="post-right-title">所有标签</h4>
     <div class="tags">
         {% for t in tags %}
-        <a href="{% url 'index' %}tag/{{ t.name }}">{{ t.name }}</a>
+        <a href="{% url 'index' %}tags/{{ t.name }}">{{ t.name }}</a>
         {% endfor %}
 
     </div>

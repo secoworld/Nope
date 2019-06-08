@@ -33,7 +33,7 @@ def index(request):
 
 #标签页
 def tags(request, tag):
-    list = Article.objects.filter(tag__name=tag)  # 获取传进来的lid
+    list = Article.objects.filter(tags__name=tag)  # 获取传进来的tag名称
     remen = Article.objects.filter(tui__id=2)[:6]  # 右侧热门推荐栏
     allcategory = Category.objects.all()  # 获取全全部的分类
     tname = Tags.objects.get(name=tag)      #获取当前的标签的名称
