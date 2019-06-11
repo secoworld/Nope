@@ -55,7 +55,7 @@
                                     <a href="{% url 'blog:detail' article.id %}">{{ article.title }}</a>
                                 </div>
                                 <div class="article-views">
-                                    <p>{{ article.excerpt }}</p> 
+                                    <p>{{ article.content|truncatewords:40 }}</p> 
                                 </div>
                                 <div class="article-info">
                                     <ul>
