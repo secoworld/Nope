@@ -56,4 +56,5 @@ docs/_build/
 *.pyc
 *.sqlite3
 *.pid
-
+migrations/*
+!migrations/__init__.py
