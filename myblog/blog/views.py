@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import  Article,Tags,Category
 from django.core.paginator import Paginator
+#引入markdown 语法
+import markdown
 
 # Create your views here.
 def test(request):
@@ -25,6 +27,13 @@ def index(request):
 def detail(request, aid):
     right_articles = Article.objects.all().order_by('-id')[:5]
     article = Article.objects.get(id=aid)
+    #使用Markdown语法进行渲染
+    article.content =  markdown.markdown(article.content,
+                                  extensions=[
+                                     'markdown.extensions.extra',
+                                     'markdown.extensions.codehilite',
+                                     'markdown.extensions.toc',
+                                  ])
     tags = Tags.objects.all()
     categorys = Category.objects.all()
     article.views += 1

@@ -23,10 +23,32 @@
   * 作者
   * 图片
 
-
+----
+## 模型设置
+使用markdown语法
+```
+pip install markdown
+```
+在detail函数中，对文章的内容进行
+```
+#使用Markdown语法进行渲染
+    article.content = = markdown.markdown(article.content,
+                                  extensions=[
+                                     'markdown.extensions.extra',
+                                     'markdown.extensions.codehilite',
+                                     'markdown.extensions.toc',
+                                  ])
+```
+## 代码高亮
+安装代码高亮模块
+```
+pip install Pygments
+```
 
 ------
 2019-06-11 待办事件
 * [x] 实现网页的页码
 * [x] 重新进行服务器的部署
 * [ ] 练习css、JavaScript
+
+
