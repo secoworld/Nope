@@ -58,3 +58,5 @@ docs/_build/
 *.pid
 migrations/*
 !migrations/__init__.py
+.vscode/
+.idea/
