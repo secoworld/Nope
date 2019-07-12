@@ -283,7 +283,7 @@ body{
 }
 
 .like {
-    position: absolute;
+    position: fixed;
     font-size: 15px;
     color: #ccc;
 
