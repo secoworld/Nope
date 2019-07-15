@@ -28,11 +28,13 @@ def detail(request, aid):
     right_articles = Article.objects.all().order_by('-id')[:5]
     article = Article.objects.get(id=aid)
     #使用Markdown语法进行渲染
-    article.content =  markdown.markdown(article.content,
+    article.body =  markdown.markdown(article.content,
                                   extensions=[
+                                    #   包含缩写、表格等常用的拓展
                                      'markdown.extensions.extra',
+                                    #  语法高亮
                                      'markdown.extensions.codehilite',
-                                     'markdown.extensions.toc',
+                                    #  'markdown.extensions.toc',
                                   ])
     tags = Tags.objects.all()
     categorys = Category.objects.all()

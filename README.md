@@ -51,4 +51,20 @@ pip install Pygments
 * [x] 重新进行服务器的部署
 * [ ] 练习css、JavaScript
 
+---
+2019-07-15 添加的内容
+1、 添加django-mdeditor富文本编辑器 
+   具体的教程可以参考[参考教程](https://juejin.im/post/5a9d00c2f265da238e0d3a54)
+   * 安装
+      ```
+      pip install django-mdeditor
+      ```
+   * 在setting.py中INSTALL_APPS进行配置
+      ```
+        INSTALLED_APPS = [
+        ...
+        'mdeditor',
+      ]
+      ```
+
 

@@ -1,6 +1,8 @@
 from django.db import models
 #导入作者
 from django.contrib.auth.models import User
+# 尝试使用django-mdeditor
+from mdeditor.fields import MDTextField
 
 # Create your models here.
 #定义数据模型
@@ -43,7 +45,9 @@ class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name="分类",blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
     #excerpt =  models.TextField("摘要", max_length=200, blank=True)
-    content = models.TextField("文章内容")
+    # content = models.TextField("文章内容")
+    # 尝试使用django-mdeditor
+    content = MDTextField()
     tags  =  models.ManyToManyField(Tags, verbose_name="标签", blank=True)
     views = models.IntegerField("阅读量", default=0)
     #图片

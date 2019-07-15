@@ -156,6 +156,15 @@ body{
     padding-bottom: 1.5em;
 }
 
+.article-detail-group .article-detail-content ul{
+    list-style-position: inside;
+    padding-left: 10px;
+}
+
+.article-detail-group .article-detail-content pre{
+    background-color: inherit;
+}
+
 .article-detail-group .article-detail-copyright{
     margin: 2em 0 0;
     padding: 0.5em 2em;
@@ -183,6 +192,7 @@ body{
     padding: 10px 30px;
     border-radius: 5px;
 }
+
 
 .article-detail-comment .commet-put,.comment-list
 {

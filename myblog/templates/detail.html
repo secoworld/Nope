@@ -24,7 +24,8 @@
     
                             <!-- 文章内容 -->
                             <div class="article-detail-content">
-                                {{ article.content|safe }}
+                                <!-- 在article的后面加入safe过滤器 -->
+                                {{ article.body|safe }}
                             </div>
     
                             <!-- 版权说明 -->
