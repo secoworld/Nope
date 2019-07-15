@@ -6,6 +6,19 @@ from django.core.paginator import Paginator
 import markdown
 
 # Create your views here.
+
+# 将重复的内容进行整理
+def get_context(request):
+    # 所有的标签
+    tags = Tags.objects.all()
+    # 右侧推荐文章
+    right_articles = Article.objects.all().order_by('-id')[:5]
+    # 分类
+    categorys = Category.objects.all()
+    # 
+    return locals()
+
+
 def test(request):
     context  = {}
     return render(request, "base.html", context)
@@ -14,9 +27,6 @@ def test(request):
 # 设置首页
 def index(request):
     articles = Article.objects.all().order_by('-id')
-    right_articles = Article.objects.all().order_by('-id')[:5]
-    tags = Tags.objects.all()
-    categorys = Category.objects.all()
     paginator = Paginator(articles, 5)
     page = request.GET.get('page')
     list_article = paginator.get_page(page)
@@ -25,7 +35,6 @@ def index(request):
 
 # 设置文章页
 def detail(request, aid):
-    right_articles = Article.objects.all().order_by('-id')[:5]
     article = Article.objects.get(id=aid)
     #使用Markdown语法进行渲染
     article.body =  markdown.markdown(article.content,
@@ -36,18 +45,12 @@ def detail(request, aid):
                                      'markdown.extensions.codehilite',
                                     #  'markdown.extensions.toc',
                                   ])
-    tags = Tags.objects.all()
-    categorys = Category.objects.all()
     article.views += 1
 
     return render(request, "detail.html", locals())
 
 #设置分类列表页
 def category_list(request, category_name):
-    tags = Tags.objects.all()
-    categorys = Category.objects.all()
-    #右侧显示的文章
-    right_articles = Article.objects.all().order_by('-id')[:5]
     #分类对应的文章列表
     list_article = Article.objects.filter(category__name= category_name).order_by('-id')
     list_name = category_name
@@ -70,10 +73,6 @@ def category_list(request, category_name):
 def tag(request, tag):
     # 标签含有tag的文章
     article = Article.objects.filter(tags__name = tag)
-    tags = Tags.objects.all()
-    categorys = Category.objects.all()
-    #右侧显示的文章
-    right_articles = Article.objects.all().order_by('-id')[:5]
     #分类对应的文章列表
     list_article = Article.objects.filter(tags__name = tag).order_by('-id')
     list_name = tag
