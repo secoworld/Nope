@@ -62,7 +62,8 @@ def detail(request, aid):
 def category_list(request, url_name):
     #分类对应的文章列表
     list_article = Article.objects.filter(category__url_name= url_name).order_by('-id')
-    list_name = Category.objects.get(url_name=url_name).name
+    list_name = url_name
+    # list_name = Category.objects.get(url_name=url_name).name
     paginator = Paginator(list_article, 5)     #每页显示10个
     page = request.GET.get('page')  #获取当前页面的页码
 
