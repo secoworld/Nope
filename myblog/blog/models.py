@@ -22,7 +22,7 @@ class Tags(models.Model):
 class Category(models.Model):
     def getUrlName(self):
         return self.name
-
+    # parentCategory = models.ForeignKey('self', on_delete=models.CASCADE, null=True, default="None", verbose_name="多级分类")
     name = models.CharField("博客分类", max_length=100)
     # 别名，使用在网站栏中的内容
     url_name = models.CharField("url名称", max_length=50, blank=True, default=(name) )
