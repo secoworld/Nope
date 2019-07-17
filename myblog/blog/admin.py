@@ -7,8 +7,8 @@ class TagsAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'url_name','index']
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'index']
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):

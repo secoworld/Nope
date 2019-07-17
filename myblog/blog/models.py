@@ -22,7 +22,7 @@ class Tags(models.Model):
 class Category(models.Model):
     def getUrlName(self):
         return self.name
-    # parentCategory = models.ForeignKey('self', on_delete=models.CASCADE, null=True, default="None", verbose_name="多级分类")
+
     name = models.CharField("博客分类", max_length=100)
     # 别名，使用在网站栏中的内容
     url_name = models.CharField("url名称", max_length=50, blank=True, default=(name) )
@@ -44,7 +44,7 @@ class Article(models.Model):
     title = models.CharField("标题", max_length=100)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name="分类",blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
-    # excerpt =  models.TextField("摘要", max_length=200, blank=True)
+    #excerpt =  models.TextField("摘要", max_length=200, blank=True)
     # content = models.TextField("文章内容")
     # 尝试使用django-mdeditor
     content = MDTextField()

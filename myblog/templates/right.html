@@ -1,8 +1,6 @@
 
-{% block right-menu %}
-<div class="col-md-3  hidden-xs">
 
-        {% block right-menu-add %}{% endblock right-menu-add %}
+<div class="col-md-3  hidden-xs">
         <div class="panel panel-default">
             <div class="panel-heading">
                 最新文章
@@ -27,7 +25,7 @@
                     <ul  class="side-bar-ul">
 
                         {% for category in categorys %}
-                        <li><a href="{% url 'blog:category' category.url_name %}">{{ category.name }}</a></li>
+                        <li><a href="{% url 'blog:category' category.name %}">{{ category.name }}</a></li>
                         {% endfor %}
                        
                         <!-- <li><a href="#">Django</a></li>
@@ -54,5 +52,3 @@
                 </div>
         </div>
     </div>
-
-    {% endblock right-menu %}
