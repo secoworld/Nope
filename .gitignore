@@ -61,3 +61,4 @@ migrations/*
 .vscode/
 .idea/
 venv/
+env/
