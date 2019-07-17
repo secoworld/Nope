@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
-
+from userprofile import urls
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('comment/', include('comment.urls', namespace='comment')),
+    path('userprofile/', include('userprofile.urls', namespace='userprofile')),
     path('mdeditor/', include('mdeditor.urls')),
     path('', include('blog.urls')),
 ]
