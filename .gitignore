@@ -55,13 +55,8 @@ docs/_build/
 *.pyc
 *.sqlite3
 *.pid
-!migrations
 migrations/*
 !migrations/__init__.py
 .idea/
 env/
 venv/
-<<<<<<< HEAD
-
-=======
->>>>>>> 536e5a2b1e13afe998c90947164e29fa871ed7c6
