@@ -61,4 +61,7 @@ migrations/*
 .idea/
 env/
 venv/
+<<<<<<< HEAD
 
+=======
+>>>>>>> 536e5a2b1e13afe998c90947164e29fa871ed7c6

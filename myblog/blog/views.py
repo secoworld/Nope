@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import  Article,Tags,Category
 from django.core.paginator import Paginator
+from comment.models import Comment
+# 搜索引擎
+from django.db.models import Q
 #引入markdown 语法
 import markdown
 
@@ -46,14 +49,20 @@ def detail(request, aid):
                                     #  'markdown.extensions.toc',
                                   ])
     article.views += 1
+    # 提取评论
+    comments = Comment.objects.filter(article_id=aid)
+    # 设置文章的相关文章
+    # last_article = Article.objects.filter(id__lt=aid).order_by('-id').first()
+    # next_article = Article.objects.filter(id__gt=aid).order_by('id').first()
 
-    return render(request, "detail.html", locals())
+    # return render(request, "detail.html", locals())
+    return render(request, 'detail.html', locals())
 
 #设置分类列表页
-def category_list(request, category_name):
+def category_list(request, url_name):
     #分类对应的文章列表
-    list_article = Article.objects.filter(category__name= category_name).order_by('-id')
-    list_name = category_name
+    list_article = Article.objects.filter(category__url_name= url_name).order_by('-id')
+    list_name = Category.objects.filter(url_name=url_name)[0].name
     paginator = Paginator(list_article, 5)     #每页显示10个
     page = request.GET.get('page')  #获取当前页面的页码
 
@@ -64,7 +73,6 @@ def category_list(request, category_name):
         list_article = paginator.page(paginator.num_pages)   #返回最后一页 
     except PagNotAnInteger:
         list_article = paginator.page(1)  #返回首页
-
 
     return render(request, "list.html",  locals())
 
@@ -84,3 +92,22 @@ def tag(request, tag):
     return render(request, "list.html", locals())
 
     
+def Search(request):
+    # 查询关键字
+    search = request.GET.get('search')
+    error_msg = "查找错误"
+
+    if not search:
+        list_name = "没有找到相关内容：" + search
+        list_article = ""
+        return render(request, "list.html", locals())
+    list_article =  Article.objects.filter(Q(title__icontains=search)| Q(content__icontains=search))
+
+    list_name = search
+    #设置分页
+    paginator = Paginator(list_article, 5)
+    page = request.GET.get('page')
+    list_article = paginator.get_page(page)
+
+    return render(request, "list.html", locals())
+

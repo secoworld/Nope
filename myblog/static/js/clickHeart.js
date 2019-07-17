@@ -60,7 +60,7 @@
     function addLike(e){
         var likeDiv = d.createElement("div");
         likeDiv.classList.add("like");
-        likeDiv.innerHTML = '<i class="fas fa-heart"></i>';
+        likeDiv.innerHTML = '<i class="glyphicon glyphicon-heart"></i>';
         d.body.appendChild(likeDiv);
 
         // 每点击一次添加一个like对象
