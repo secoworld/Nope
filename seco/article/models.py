@@ -20,8 +20,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"pk": self.pk})
 
 # 标签
 class Tags(models.Model):
@@ -35,8 +33,6 @@ class Tags(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse("Tags_ detail", kwargs={"pk": self.pk})
 
 
 # 文章
@@ -59,5 +55,3 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse("article_detail", kwargs={"pk": self.pk})

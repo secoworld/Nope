@@ -1,0 +1,58 @@
+
+{% block right-menu %}
+<div class="col-md-3  hidden-xs">
+
+        {% block right-menu-add %}{% endblock right-menu-add %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                最新文章
+            </div>
+            <div class="panel-body ">
+                <ol class="side-bar-ol">
+                    {% for article in hot_articles %}
+                    <li><a href="{% url 'article:detail' article.id %}">{{ article.title }}</a></li>
+                    {% endfor %}
+                    
+                    <!-- <li><a href="#">我的第二个文章</a></li>
+                    <li><a href="#">我的第三个文章</a></li> -->
+                </ol>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    分类
+                </div>
+                <div class="panel-body">
+                    <ul  class="side-bar-ul">
+
+                        {% for category in categorys %}
+                        <li><a href="{% url 'article:category' category.urlname %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                       
+                        <!-- <li><a href="#">Django</a></li>
+                        <li><a href="#">html</a></li>
+                        <li><a href="#">java</a></li> -->
+                    </ul>
+                </div>
+        </div>
+
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    标签
+                </div>
+                <div class="panel-body ">
+                    <ul  class="side-bar-ul">
+                        {% for tag in tags %}
+                        <li><a href="{% url 'article:tags' tag.name %}">{{ tag.name}}</a></li>
+                        {% endfor %}
+                        
+                        <!-- <li><a href="#">Django</a></li>
+                        <li><a href="#">html</a></li>
+                        <li><a href="#">java</a></li> -->
+                    </ul>
+                </div>
+        </div>
+    </div>
+
+    {% endblock right-menu %}
