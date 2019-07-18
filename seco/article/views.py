@@ -45,9 +45,9 @@ def index(request):
 
 
 # 显示文章
-def article_show(requset, id):
-    aritcle = Article.objects.get(id=id)
-    comments = Comment.objects.filter(article__id=id)
+def article_show(requset, aid):
+    essay = Article.objects.get(id=aid)
+    comments = Comment.objects.filter(article__id=aid)
 
     return render(requset, 'detail.html', locals())
 

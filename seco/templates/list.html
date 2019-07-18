@@ -47,7 +47,6 @@
                                     <ul>
                                         <li>作者：<a href="{% url 'blog:home'%}author-{{article.author.id}}">{{ article.author }}</a></li>                                            </li>
                                         <li>发表日期：<a href="#">{{ article.created_time }} </a></li>
-                                        <li>分类: <a href="{% url 'blog:category' article.category.name %}">{{ article.category.name }}</a></li>
                                     </ul>  
                                 </div>                                
                             </div>
