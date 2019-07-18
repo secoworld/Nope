@@ -92,6 +92,9 @@
         }
     ```
     将数据库换成sqlite以外的数据库需要手动创建数据库`CREATE DATABASE database_name`,
+    ```
+    CREATE DATABASE mysite CHARACTER SET utf8;
+    ```
 
 
 
