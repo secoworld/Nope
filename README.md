@@ -59,3 +59,53 @@
     TIME_ZONE = 'Asia/shanghai'
     ```
 
+    将`templates`加入到`TEMPLATES`中
+    ```python
+    'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+    ```
+    设置静态文件和媒体文件的目录
+    ```python
+    # 设置静态文件的根目录
+     STATIC_ROOT = [
+         os.path.join(BASE_DIR, 'static'),
+     ]
+
+     # 设置媒体文件的位置
+     MEDIA_URL = '/media/',
+     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    ```
+
+    将更改数据库，将Django自带的sqlite数据库换成MySQL数据库
+    ```python
+        import pymysql         # 一定要添加这两行！通过pip install pymysql！
+        pymysql.install_as_MySQLdb()
+
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'mysite',
+                'HOST': '192.168.1.1',
+                'USER': 'root',
+                'PASSWORD': 'pwd',
+                'PORT': '3306',
+            }
+        }
+    ```
+    将数据库换成sqlite以外的数据库需要手动创建数据库`CREATE DATABASE database_name`,
+
+
+
+## 环境中更改过的地方
+1. 在`lib\site-packages\django\db\backends\mysql\base.py`中，将以下代码注释
+   ```python
+   if version < (1, 3, 3):
+     raise ImproperlyConfigured("mysqlclient 1.3.3 or newer is required; you have %s" % Database.__version__) 
+   ```
+2. 在`env\lib\site-packages\django\db\backends\mysql\operations.py`中将146行中
+   ```python
+   query = query.decode(errors='replace')
+   ```
+   改为
+   ```python
+   query = query.encode(errors='replace')
+   ```
