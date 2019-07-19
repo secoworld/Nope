@@ -109,6 +109,6 @@
    query = query.decode(errors='replace')
    ```
    改为
-   ```python
+   ```python 
    query = query.encode(errors='replace')
    ```

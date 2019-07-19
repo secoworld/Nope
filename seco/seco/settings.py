@@ -29,7 +29,7 @@ SECRET_KEY = '4_m0&-1r+@9oa@u6=iui!-5o%3^cs!d(m=+71b&^@v2q9c=h@9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -130,6 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# 设置收集静态文件的目录
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # 设置静态文件的根目录
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
