@@ -32,7 +32,7 @@
 
             <!-- 导航栏的的搜索框 -->
             <div class="search navbar-right">
-                <form class="navbar-form navbar-left" method="get" action="#" >
+                <form class="navbar-form navbar-left" method="get" action="{% url 'article:search'%}" >
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" id="search" name="search">
                     </div>
@@ -61,7 +61,7 @@
                 <!-- 登陆/注册 -->
                 <span class="nav navbar-nav ">
                     <ul class="nav navbar-nav text-center" style="font-size:16px;">
-                        <li class="nav-item"><a href="{% url 'article:home'%}admin" class="nav-link">登录|注册</a></li>
+                        <li class="nav-item"><a href="{% url 'article:home'%}/admin" class="nav-link">登录|注册</a></li>
                     </ul>
                 </span>
                 <!-- 结束判断是否登录 -->

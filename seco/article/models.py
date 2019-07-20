@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
-
+from mdeditor.fields import MDTextField
 # Create your models here.
 # 创建models规定article的属性
 
@@ -39,7 +39,10 @@ class Tags(models.Model):
 class Article(models.Model):
     
     title = models.CharField("标题", max_length=50)
-    context = models.TextField("文章内容")
+
+    # context = models.TextField("文章内容")
+    # 富文本编辑器
+    context = MDTextField("文章内容")
     author = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, verbose_name="分类", on_delete=models.DO_NOTHING)
     tags = models.ManyToManyField(Tags, verbose_name="标签")

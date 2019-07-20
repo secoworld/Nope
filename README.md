@@ -96,6 +96,52 @@
     CREATE DATABASE mysite CHARACTER SET utf8;
     ```
 
+2. 使用Markdown编辑器
+   首先需要安装Markdown
+   ```python 
+   pip install markdown 
+   ```
+   将Markdown显示，可以使用
+    ```python
+    import markdown
+
+    body = markdown.Markdown(article.body, )
+    ```
+
+    实现代码高亮
+    ```
+    pip install Pygments
+    ```
+    进入到`static/css/`然后运行
+    ```
+    pygmentize -S monokai -f html -a .codehilite > monokai.css
+    ```
+
+    安装富文本编辑器
+    ```
+    pip install django-mdeditor
+    ```
+    然后在settings.py中进行注册
+    ```
+    'mdeditor',
+    ```
+    将下面代码放入到`urls.py`的底部，用于指定图片传送的地方
+    ```python 
+    from django.conf.urls.static import static
+    from django.conf import settings
+
+    if settings.DEBUG:
+        # static files (images, css, javascript, etc.)
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ```
+    在Model中使用mdeditor
+    ```python
+    from mdeditor.fields import MDTextField
+
+    context = MDTextField("文章内容")
+    ```
+
+3. 
 
 
 ## 环境中更改过的地方
@@ -112,3 +158,9 @@
    ```python 
    query = query.encode(errors='replace')
    ```
+
+## 记录我在使用Django时候遇到的坑（遇到的问题，为什么会出现这些问题， 如何解决）
+1. 问题：在使用nginx时，已经申请了https链接，结果使用的时候依旧显示nginx的欢迎界面
+   解决办法：  将server 80的下的内容复制一份到server 443中即可。    
+   已经将成功的配置和方法复制到了nginx.conf 和 uwsgi/myblog.ini中
+   
