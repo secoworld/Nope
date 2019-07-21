@@ -194,3 +194,25 @@
    ```css
    padding-inline-start: 1em;
    ```
+
+4. Django的后台管理样式出现无法加载css样式的问题，
+   解决方法：           
+   首先在`seetings.py`中添加`STATIC_ROOT`选项
+   ```python
+   STATIC_ROOT = os.path.join(BASE_DIR, 'static_new')
+   ```
+   然后再将`nginx`服务器的配置更改`vi /etc/nginx/sites-available/mysite.conf`
+   将下面的内容
+   ```
+   location /static {
+        alias /home/www/seco/static; # your Django project's static files - amend as required
+    	index index.html index.htm;
+	}
+   ```
+   更改为
+   ```
+   location /static {
+        alias /home/www/seco/static_new; # your Django project's static files - amend as required
+    	index index.html index.htm;
+	}
+   ```

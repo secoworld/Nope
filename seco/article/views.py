@@ -8,8 +8,11 @@ import markdown
 
 # 通用的样式
 def commont_get(request):
+    list_category = [[],]
     hot_articles = Article.objects.all().order_by('-id')[:5]
     categorys = Category.objects.all()
+    first_category = Category.objects.filter(rank=1)
+    second_category = Category.objects.filter(rank=2)
     tags = Tags.objects.all()
 
     return locals()
@@ -65,9 +68,10 @@ def article_show(requset, aid):
 
 # 显示列表
 def category_list(request, urlname):
-    lists = Article.objects.filter(category__urlname=urlname).order_by('-id')
+    lists = Article.objects.filter(Q(category__urlname=urlname)|Q(category__father__urlname=urlname)).order_by('-id')
+
     try:
-        list_name = lists[0].category.name
+        list_name = Category.objects.get(urlname=urlname).name
     except:
         list_name = "你查找的分类为空"
     paginator = Paginator(lists, 10)

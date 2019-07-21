@@ -120,6 +120,11 @@ body{
 
 }
 
+.detail-body{
+    position: relative;
+    top: 50PX;
+}
+
 
 .article-detail-group {
     background-color: #fff;
@@ -239,24 +244,27 @@ body{
 } */
 
 .side-bar-ul li {
-    display: inline;
-    padding: 3px 2px;
+    display: inline-block ;
+    
+    width: 45%; 
+    line-height: 1.5em;
+    margin: 2px 0;
+    border-radius: 9px;
 }
 
 .side-bar-ul li  a{
-    width: 45%;
-    color:white;
-    padding-top: 3px;
-    display: inline-block;
-    padding: 3px;
-    padding-right: 5px;
-    line-height: 1.5em;
+    
+    color:white;   
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 3px 2px;
+    border-radius: 9px;
     /* background-color: rgba(14, 13, 14, 0.733); */
-    margin: 2px 0;
     text-align: center;
 }
 
-.side-bar-ul li  a:hover{
+.side-bar-ul li a:hover{
     color: white;
     background-color: black;
 }
@@ -326,3 +334,45 @@ body{
     top: 3px;
 
 }
+
+
+/* 二级菜单css样式  开始 */
+.header-ul{
+    position: absolute;
+    list-style-type: none;
+    background-color:  rgba(0,0,0, 0);
+    display: none;  
+}
+
+.header-ul li{
+    display: list-item;
+    margin: auto;
+    width: 100px;
+    text-align: center;
+    line-height: 30px;
+    border-top: 5px solid rgba(0,0,0, 0.2);
+    background-color: #e7e7e7;
+    color: #333;
+    border-radius: 4px;
+}
+.header-ul li>a{
+    display:block;
+    width: 100%;    
+    text-decoration: none;
+}
+
+.header-ul li>a:hover {
+    background-color: #000;
+    color:white;
+    border-radius: 4px;
+}
+
+.nav-item {
+    min-width: 80px;
+    text-align: center;
+}
+
+.header-item:hover>ul {
+    display:list-item;
+}
+/* 二级菜单css样式  结束 */

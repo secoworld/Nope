@@ -1,4 +1,3 @@
-
 {% block header %}
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -18,10 +17,17 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-head">
             <ul class="nav navbar-nav nav-pills" style="font-size:16px;">
 
-                {% for cate in categorys %}
-                {% if cate.rank == 1 %}
-                <li class="nav-item"><a href="{% url 'article:category' cate.urlname %}" class="nav-link">{{cate.name}}</a></li>
-                {% endif %}
+                {% for first in first_category %}
+                <li class="nav-item  header-item"><a href="{% url 'article:category' first.urlname %}"
+                        class="nav-link">{{first.name}}</a>               
+                    <ul class="header-ul">
+                         {%for second in second_category %}
+                         {% if second.father == first %}
+                            <li><a href="{% url 'article:category' second.urlname %}">{{ second.name}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>                 
+                </li>
                 {% endfor %}
                 <!-- 手动设置目录 -->
 
@@ -34,7 +40,7 @@
 
             <!-- 导航栏的的搜索框 -->
             <div class="search navbar-right">
-                <form class="navbar-form navbar-left" method="get" action="{% url 'article:search'%}" >
+                <form class="navbar-form navbar-left" method="get" action="{% url 'article:search'%}">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" id="search" name="search">
                     </div>
@@ -53,7 +59,8 @@
                                 {{ user.username }}
                             </a>
                         </li> -->
-                        <li class="nav-item"><a href="{% url 'article:home'%}admin" class="nav-link"> {{ user.username }}</a></li>
+                        <li class="nav-item"><a href="{% url 'article:home'%}admin" class="nav-link">
+                                {{ user.username }}</a></li>
                     </ul>
                 </span>
 

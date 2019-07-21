@@ -108,23 +108,22 @@
                             <div class="page-info">
                                 <ul class="pangination panginator-ul">
                                     <!-- 页面页码 -->
-                                    {% if list_artilcle.has_previous %}
+                                    {% if articles.has_previous %}
                                     <li><a href="?page=1">
                                         <span class="glyphicon glyphicon-step-backward">
                                     </span></a></li>
-                                        <li><a href="?page={{ list_article.previous_page_number }}"><span class="glyphicon glyphicon-chevron-left">
+                                        <li><a href="?page={{ articles.previous_page_number }}"><span class="glyphicon glyphicon-chevron-left">
                                     </span></a></li>
                                     {% endif %}
 
-                                    <li><span> <a href="?page={{ list_article.number }}">
-                                            {{ list_article.number }} of {{ list_article.paginator.num_pages }}
-                                        </a>
+                                    <li><span> 
+                                            {{ articles.number }} 
                                     </span></li>
 
-                                    {% if list_article.has_next %}
-                                        <li><a href="?page={{ list_article.next_page_number }}"><span class="glyphicon glyphicon-chevron-right">
+                                    {% if articles.has_next %}
+                                        <li><a href="?page={{ articles.next_page_number }}"><span class="glyphicon glyphicon-chevron-right">
                                     </span></a></li>        
-                                        <li><a href="?page={{ list_article.paginator.num_pages }}"><span class="glyphicon glyphicon-step-forward">    
+                                        <li><a href="?page={{ articles.paginator.num_pages }}"><span class="glyphicon glyphicon-step-forward">    
                                     </span></a></li>
                                     {% endif %}
                                 </ul>
