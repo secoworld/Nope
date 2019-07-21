@@ -156,9 +156,10 @@ body{
     padding-bottom: 1.5em;
 }
 
-.article-detail-group .article-detail-content ul{
-    list-style-position: inside;
-    padding-left: 10px;
+.article-detail-group .article-detail-content ul,ol{
+    /* list-style-position: inside; */
+    /* padding-left: 10px; */
+    padding-inline-start: 1em;
 }
 
 .article-detail-group .article-detail-content pre{
@@ -287,6 +288,11 @@ body{
     background-color: #FF6600;  
 }  
 
+
+/* 文章的目录 */
+.right-show-toc ul{
+    padding-inline-start: 1em;
+}
 
 .content-body{
     margin-top: 4em;

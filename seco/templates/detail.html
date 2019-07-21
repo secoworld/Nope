@@ -97,4 +97,21 @@
             </div>
         </div>
     </div>
-{% endblock %}
+
+   
+{% endblock %} 
+{% block right-menu-add %}
+    
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            目录
+        </div>
+        <div class="panel-body ">
+            <div class="right-show-toc">
+                {{ essay.toc|safe }}
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock right-menu-add %}

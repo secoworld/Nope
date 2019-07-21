@@ -105,7 +105,11 @@
     ```python
     import markdown
 
-    body = markdown.Markdown(article.body, )
+    eassy.body = markdown.markdown(article.body, extensions=[
+                                     'markdown.extensions.extra',
+                                    # 语法高亮扩展
+                                     'markdown.extensions.codehilite',
+                                     'markdown.extensions.toc',])
     ```
 
     实现代码高亮
@@ -116,6 +120,7 @@
     ```
     pygmentize -S monokai -f html -a .codehilite > monokai.css
     ```
+    然后在网页中引入生成的`css`文件
 
     安装富文本编辑器
     ```
@@ -141,7 +146,19 @@
     context = MDTextField("文章内容")
     ```
 
-3. 
+3. 在Markdown中提取目录
+   首先现将之前的`eassy.body`改为：
+   ```python 
+    md = markdown.Markdown( extensions=[
+                                     'markdown.extensions.extra',
+                                    # 语法高亮扩展
+                                     'markdown.extensions.codehilite',
+                                     'markdown.extensions.toc',])
+    eassy.context = md.convert(eassy.context)
+    eassy.toc = md.toc
+
+   ```
+   > 注意`markdown.markdown` 和 `markdown.Markdown`的区别
 
 
 ## 环境中更改过的地方
@@ -164,3 +181,16 @@
    解决办法：  将server 80的下的内容复制一份到server 443中即可。    
    已经将成功的配置和方法复制到了nginx.conf 和 uwsgi/myblog.ini中
    
+
+2. 出现错误
+   ```
+   RuntimeError: cryptography is required for sha256_password or caching_sha2_password
+   ```
+   解决方法：
+   ```
+   pip install cryptography
+   ```
+3. 在网页中的Markdown的列表无法正常显示，不能正常的缩进，在显示`css`文件中的`div ul`下加入
+   ```css
+   padding-inline-start: 1em;
+   ```

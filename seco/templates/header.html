@@ -19,7 +19,9 @@
             <ul class="nav navbar-nav nav-pills" style="font-size:16px;">
 
                 {% for cate in categorys %}
+                {% if cate.rank == 1 %}
                 <li class="nav-item"><a href="{% url 'article:category' cate.urlname %}" class="nav-link">{{cate.name}}</a></li>
+                {% endif %}
                 {% endfor %}
                 <!-- 手动设置目录 -->
 
@@ -45,14 +47,13 @@
                 <!-- 如果用户已经登录，则显示用户名和下拉菜单 -->
                 <span class="nav navbar-nav ">
                     <ul class="nav navbar-nav text-center" style="font-size:16px;">
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="{% url 'article:home'%}admin" id="navbarDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ user.username }}
                             </a>
-                           
-
-                        </li>
+                        </li> -->
+                        <li class="nav-item"><a href="{% url 'article:home'%}admin" class="nav-link"> {{ user.username }}</a></li>
                     </ul>
                 </span>
 
@@ -61,7 +62,7 @@
                 <!-- 登陆/注册 -->
                 <span class="nav navbar-nav ">
                     <ul class="nav navbar-nav text-center" style="font-size:16px;">
-                        <li class="nav-item"><a href="{% url 'article:home'%}/admin" class="nav-link">登录|注册</a></li>
+                        <li class="nav-item"><a href="{% url 'article:home'%}admin" class="nav-link">登录|注册</a></li>
                     </ul>
                 </span>
                 <!-- 结束判断是否登录 -->
