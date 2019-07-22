@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+<!-- 拓展标题 -->
+{% block title %} 刘龙韬的博客-列表{{ list_name }} {% endblock title %}
+<!-- 拓展标题结束 -->
+
 {% block body %}
 <div class="col-md-9 ">
     <div class="row">
@@ -72,7 +76,7 @@
                                 </span></a></li>
                         {% endif %}
 
-                        <li><span> {{ lists.number }} of {{ lists.paginator.num_pages }}</span></li>
+                        <li><span> {{ lists.number }} </span></li>
 
                         {% if lists.has_next %}
                         <li><a href="?page={{ lists.next_page_number }}"><span

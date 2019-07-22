@@ -1,6 +1,12 @@
 <!-- 只能在Python Django进行继承页面 -->
 {% extends "base.html" %}
 {% load staticfiles %}
+
+
+<!-- 拓展标题 -->
+{% block title %} 刘龙韬的博客-首页 {% endblock title %}
+<!-- 拓展标题结束 -->
+
 {% block body%}  
             <!-- 左侧：文章详情页 -->
             <div class="col-md-9 ">

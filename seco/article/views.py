@@ -61,7 +61,7 @@ def article_show(requset, aid):
 
     essay.context = md.convert(essay.context)
     essay.toc = md.toc
-
+    essay.views += 1
     comments = Comment.objects.filter(article__id=aid)
 
     return render(requset, 'detail.html', locals())

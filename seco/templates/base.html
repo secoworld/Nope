@@ -11,7 +11,7 @@
 
     <!-- 网站图表 -->
     <link rel="icon" href="{% static 'img/Logo.png' %}">
-    <title>{% block title %} LT的博客 {% endblock title %}</title>
+    <title>{% block title %} 刘龙韬的博客 {% endblock title %}</title>
 
     <!-- 引入markdwon的高亮语法 -->
     <link rel="stylesheet" href="{% static 'css/monokai.css' %}">
@@ -44,7 +44,7 @@
     <!-- 设置导航栏 -->
     {% include 'header.html' %}
 
-    
+
     <!-- 设置博客网站的主体 -->
     <div class="container content-body" style="margin-top:4em;">
         <div class="row">
@@ -105,7 +105,7 @@
                                     <a href="{% static 'article:home'%}/{{ article.id }}">{{ article.title }}</a>
                                 </div>
                                 <div class="article-views">
-                                   {{article.content|truncatewords:50}}
+                                    {{article.content|truncatewords:50}}
                                 </div>
                                 <div class="article-info">
                                     <ul>
@@ -162,18 +162,21 @@
                                     <li><a href="?page=1">
                                             <span class="glyphicon glyphicon-step-backward">
                                             </span></a></li>
-                                    <li><a href="?page={{ articles.previos_page_number }}"><span class="glyphicon glyphicon-chevron-left">
+                                    <li><a href="?page={{ articles.previos_page_number }}"><span
+                                                class="glyphicon glyphicon-chevron-left">
                                             </span></a></li>
-                                            {% endif %}
+                                    {% endif %}
                                     <li><span>
-                                                2
-                                            </span></li>
+                                            2
+                                        </span></li>
                                     {% if articles.has_next %}
-                                    <li><a href="?page={{ articles.next_page_number }}"><span class="glyphicon glyphicon-chevron-right">
+                                    <li><a href="?page={{ articles.next_page_number }}"><span
+                                                class="glyphicon glyphicon-chevron-right">
                                             </span></a></li>
-                                    <li><a href="?page={{articles.paginator.num_pages }}"><span class="glyphicon glyphicon-step-forward">
+                                    <li><a href="?page={{articles.paginator.num_pages }}"><span
+                                                class="glyphicon glyphicon-step-forward">
                                             </span></a></li>
-                                            {% endif %}
+                                    {% endif %}
                                 </ul>
                             </div>
 
@@ -192,7 +195,7 @@
                 {% include "right.html" %}
             </div>
             <!-- 右侧：工具栏 -->
-            
+
 
         </div>
 
@@ -206,5 +209,21 @@
 </body>
 
 <script src="{% static 'js/clickHeart.js' %}"></script>
+
+<!-- 百度自动推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
 </html>

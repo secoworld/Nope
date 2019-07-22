@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+
+<!-- 拓展标题 -->
+{% block title %} 刘龙韬的博客-文章：{{ essay.title }} {% endblock title %}
+<!-- 拓展标题结束 -->
 <!-- 拓展文章详情页 -->
 {% block body%}
 <div class="col-md-9" >
