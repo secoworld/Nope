@@ -304,6 +304,7 @@ body{
 
 .content-body{
     margin-top: 4em;
+    min-height: 70vh;
 }
 
 .like {
@@ -376,3 +377,23 @@ body{
     display:list-item;
 }
 /* 二级菜单css样式  结束 */
+
+.form-style {
+    background-color: #777;
+    margin: 50px 35%;
+    padding: 20px 30px;
+    font-size: 18px;
+    min-height: 40vh;
+}
+
+/* 文章的评论区域 */
+.commet_list {
+    background: #ddd;
+    border-radius: 5px;
+    padding: 8px 10px 30px;
+    border-left: 5px solid #55d620e6;
+}
+
+.comment-list .pull-right{
+    margin: -20px auto;
+}

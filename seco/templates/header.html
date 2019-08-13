@@ -19,14 +19,14 @@
 
                 {% for first in first_category %}
                 <li class="nav-item  header-item"><a href="{% url 'article:category' first.urlname %}"
-                        class="nav-link">{{first.name}}</a>               
+                        class="nav-link">{{first.name}}</a>
                     <ul class="header-ul">
-                         {%for second in second_category %}
-                         {% if second.father == first %}
-                            <li><a href="{% url 'article:category' second.urlname %}">{{ second.name}}</a></li>
+                        {%for second in second_category %}
+                        {% if second.father == first %}
+                        <li><a href="{% url 'article:category' second.urlname %}">{{ second.name}}</a></li>
                         {% endif %}
                         {% endfor %}
-                    </ul>                 
+                    </ul>
                 </li>
                 {% endfor %}
                 <!-- 手动设置目录 -->
@@ -41,6 +41,7 @@
             <!-- 导航栏的的搜索框 -->
             <div class="search navbar-right">
                 <form class="navbar-form navbar-left" method="get" action="{% url 'article:search'%}">
+                    {% csrf_token %}
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" id="search" name="search">
                     </div>
@@ -49,30 +50,23 @@
                     </button>
                 </form>
 
-                {% if user.is_authenticated %}
-                <!-- 如果用户已经登录，则显示用户名和下拉菜单 -->
-                <span class="nav navbar-nav ">
-                    <ul class="nav navbar-nav text-center" style="font-size:16px;">
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{% url 'article:home'%}admin" id="navbarDropdown"
-                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ user.username }}
-                            </a>
-                        </li> -->
-                        <li class="nav-item"><a href="{% url 'article:home'%}admin" class="nav-link">
-                                {{ user.username }}</a></li>
-                    </ul>
-                </span>
 
-                {% else %}
-                <!-- 如果用户没有登录，则显示登录按钮 -->
-                <!-- 登陆/注册 -->
-                <span class="nav navbar-nav ">
-                    <ul class="nav navbar-nav text-center" style="font-size:16px;">
-                        <li class="nav-item"><a href="{% url 'article:home'%}admin" class="nav-link">登录|注册</a></li>
+                {% if user.is_authenticated %}
+                <div class="btn-group" style="margin:7px auto;">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" >
+                        {{ user.username }} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" style="min-width: 100%; text-align: center;">
+                        <li><a href="{% url 'article:home' %}admin/">管理</a></li>
+                        <li><a href="{% url 'users:logout' %}">退出</a></li>
                     </ul>
-                </span>
-                <!-- 结束判断是否登录 -->
+                </div>
+                {% else %}
+                <div class="btn-group" style="margin:7px auto;">
+                    <a href="{% url 'users:login' %}?next_page={{ request.path }}"><button type="button"
+                            class="btn btn-default">登录</button> </a>
+                </div>
                 {% endif%}
             </div>
 

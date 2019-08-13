@@ -11,6 +11,7 @@ class Category(models.Model):
     name = models.CharField("分类名", max_length=50)
     father = models.ForeignKey("self", verbose_name="父级", on_delete=models.DO_NOTHING, null=True, blank=True)
     rank = models.IntegerField("分类等级", default=1)
+    show = models.BooleanField("列表显示", default=True)
     urlname = models.CharField("url名称", max_length=50, default="all")
 
     class Meta:

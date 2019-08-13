@@ -191,8 +191,10 @@
             {% endblock %}
 
             <div class="col-md-3  hidden-xs">
-                {% block right-menu-add %}{% endblock right-menu-add %}
-                {% include "right.html" %}
+                {% block right-menu-add %}
+                     {% include "right.html" %}
+                {% endblock right-menu-add %}
+               
             </div>
             <!-- 右侧：工具栏 -->
 
