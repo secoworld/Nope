@@ -5,7 +5,7 @@ from article.models import Article
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, verbose_name="文章", on_delete=models.CASCADE)
-    parent = models.ForeignKey("self", verbose_name="父级评论", on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", verbose_name="父级评论", on_delete=models.CASCADE, blank=True, null=True)
     rank = models.IntegerField("评论级数", default=1)
     context = models.TextField("评论的内容")
     user = models.ForeignKey(User, verbose_name="评论人", on_delete=models.CASCADE)
