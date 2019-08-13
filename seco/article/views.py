@@ -169,6 +169,7 @@ def update_comment(request):
 
     if form.is_valid():
         comment = Comment()
+        # comment = Us
         comment.user = request.user
         comment.context = form.cleaned_data['context']
         comment.save()

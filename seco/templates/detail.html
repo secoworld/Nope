@@ -67,7 +67,7 @@
 
                 {% if request.user.is_authenticated%}
                 <!-- 将post改为json传输数据的形式 -->
-                <form  id="comment_sent" action="{% url 'article:update_comment'%}" method="post">
+                <form  id="comment_sent" action="{% url 'article:detail' essay.id %}" method="post">
                     {% csrf_token %}
                     <div>
                         <label> 评论内容</label>
