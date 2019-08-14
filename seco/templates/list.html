@@ -24,7 +24,7 @@
                         <a href="{% url 'article:detail' list.id  %}">{{ list.title }}</a>
                     </div>
                     <div class="article-views">
-                        <p>{{ list.content|truncatewords:20 }}</p>
+                        <p>{{ list.context|truncatewords:5|safe }}</p>
                     </div>
                     <div class="article-info">
                         <ul>
@@ -63,34 +63,45 @@
 
         <!-- 设置文章的页码 -->
         <div class="col-md-12">
-            <div class="panginator">
-                <div class="page-info">
-                    <ul class="pangination panginator-ul">
-                        <!-- 页面页码 -->
-                        {% if lists.has_previous %}
-                        <li><a href="?page=1">
-                                <span class="glyphicon glyphicon-step-backward">
-                                </span></a></li>
-                        <li><a href="?page={{ lists.previous_page_number }}"><span
-                                    class="glyphicon glyphicon-chevron-left">
-                                </span></a></li>
-                        {% endif %}
-
-                        <li><span> {{ lists.number }} </span></li>
-
-                        {% if lists.has_next %}
-                        <li><a href="?page={{ lists.next_page_number }}"><span
-                                    class="glyphicon glyphicon-chevron-right">
-                                </span></a></li>
-                        <li><a href="?page={{ lists.paginator.num_pages }}"><span
-                                    class="glyphicon glyphicon-step-forward">
-                                </span></a></li>
-                        {% endif %}
-                    </ul>
+                <div class="panginator">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-lg">
+                            {% if articles.has_previous %}
+                            <li>
+                                <a href="?page={{ articles.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="?page={{ articles.number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+    
+                            {% for page in pages.page_range %}
+                            <li {% if page == articles.number %} class="active" {% endif %}><a
+                                    href="?page={{ page }}">{{ page }}</a></li>
+                            {% endfor%}
+    
+                            {% if articles.has_next %}
+                            <li>
+                                <a href="?page={{ articles.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="?page={{ articles.number}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
                 </div>
-
+    
             </div>
-        </div>
 
 
     </div>

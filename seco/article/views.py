@@ -42,16 +42,17 @@ def index(request):
     articles = Article.objects.all().order_by('-id')
 
     # setPage(request, articles, 5)
-    paginator = Paginator(articles, 5)
-    page = request.GET.get('page')
+    pages = Paginator(articles, 10)
+   
+    page = request.GET.get('page',1)
 
     try:
-        articles = paginator.get_page(page)
+        articles = pages.get_page(page)
     except EmptyPage:
-        articles = paginator.get_page(paginator.num_pages)  # 返回最后一页
+        articles = pages.get_page(pages.num_pages)  # 返回最后一页
     except:
-        articles = paginator.get_page(1)  # 返回首页
-
+        articles = pages.get_page(1)  # 返回首页
+    
     return render(request, 'index.html', locals())
 
 
@@ -100,15 +101,15 @@ def category_list(request, urlname):
         list_name = Category.objects.get(urlname=urlname).name
     except:
         list_name = "你查找的分类为空"
-    paginator = Paginator(lists, 10)
+    pages = Paginator(lists, 10)
     page = request.GET.get('page')
 
     try:
-        lists = paginator.get_page(page)
+        lists = pages.get_page(page)
     except EmptyPage:
-        lists = paginator.get_page(paginator.num_pages)  # 返回最后一页
+        lists = pages.get_page(pages.num_pages)  # 返回最后一页
     except:
-        lists = paginator.get_page(1)  # 返回首页
+        lists = pages.get_page(1)  # 返回首页
 
     return render(request, 'list.html', locals())
 
@@ -122,15 +123,15 @@ def tag_list(request, tag):
     except:
         list_name = "你查找的标签为空"
 
-    paginator = Paginator(lists, 10)
+        pages = Paginator(lists, 10)
     page = request.GET.get('page')
 
     try:
-        lists = paginator.get_page(page)
+        lists = pages.get_page(page)
     except EmptyPage:
-        lists = paginator.get_page(paginator.num_pages)  # 返回最后一页
+        lists = pages.get_page(pages.num_pages)  # 返回最后一页
     except:
-        lists = paginator.get_page(1)  # 返回首页
+        lists = pages.get_page(1)  # 返回首页
 
     return render(request, 'list.html', locals())
 
@@ -149,15 +150,15 @@ def Search(request):
         Q(title__icontains=word) | Q(context__icontains=word))
 
     list_name = word
-    paginator = Paginator(lists, 10)
+    pages = Paginator(lists, 10)
     page = request.GET.get('page')
 
     try:
-        lists = paginator.get_page(page)
+        lists = pages.get_page(page)
     except EmptyPage:
-        lists = paginator.get_page(paginator.num_pages)  # 返回最后一页
+        lists = pages.get_page(pages.num_pages)  # 返回最后一页
     except:
-        lists = paginator.get_page(1)  # 返回首页
+        lists = pages.get_page(1)  # 返回首页
 
     return render(request, 'list.html', locals())
 

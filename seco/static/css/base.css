@@ -167,9 +167,9 @@ body{
     padding-inline-start: 1em;
 }
 
-.article-detail-group .article-detail-content pre{
-    /* background-color: inherit; */
-}
+/* .article-detail-group .article-detail-content pre{
+    background-color: inherit;
+} */
 
 .article-detail-group .article-detail-copyright{
     margin: 2em 0 0;
