@@ -168,7 +168,7 @@ body{
 }
 
 .article-detail-group .article-detail-content pre{
-    background-color: inherit;
+    /* background-color: inherit; */
 }
 
 .article-detail-group .article-detail-copyright{
