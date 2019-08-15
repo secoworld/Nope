@@ -19,16 +19,20 @@ body{
 
 .article{
     margin: 10px auto;
-    border: 1px solid #fff;
+    /* border: 1px solid #fff; */
     border-radius: 4px;
-    background-color: #fff;
-    box-shadow: 2px 2px grey;
+    background-color: #e0e0e0;
+    /* box-shadow: 2px 2px grey; */
 }
 
 .article .article-item{
-    margin-top: 10px;
+    margin-top: 9px;
+    background: #fff;
     border-bottom: 1px solid #e0e0e0;
     padding: 4px 10px;
+    border-radius: 5px;
+    box-shadow: 4px 4px #999;
+
 }
 
 .article .article-item .article-header{
@@ -380,10 +384,13 @@ body{
 
 .form-style {
     background-color: #777;
-    margin: 50px 35%;
+    /* margin: 50px auto; */
+    margin-top: 50px;
     padding: 20px 30px;
     font-size: 18px;
     min-height: 40vh;
+    min-width: 250px;
+    max-width: 300px;
 }
 
 /* 文章的评论区域 */
@@ -396,4 +403,17 @@ body{
 
 .comment-list .pull-right{
     margin: -20px auto;
+}
+
+/* 解决图片过大的问题 */
+.article-detail-comment .commet-put, .comment-list img {
+    max-width: 100%;
+}
+.article-detail-group img{
+    max-width: 100%;
+}
+
+/* 设置超链接的颜色和样式 */
+.article-detail-group a{
+    color: #337ab7;
 }

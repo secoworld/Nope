@@ -9,8 +9,6 @@ import markdown
 # Create your views here.
 
 # 通用的样式
-
-
 def commont_get(request):
     list_category = [[], ]
     hot_articles = Article.objects.all().order_by('-id')[:5]
@@ -21,6 +19,15 @@ def commont_get(request):
 
     return locals()
 
+def mark_contrct(objs):
+    for obj in objs:
+        obj.context = markdown.markdown(obj.context,extensions=[
+            'markdown.extensions.extra',
+            # 语法高亮扩展
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
+       
 
 def setPage(request, lists, num):
     paginator = Paginator(lists, num)
@@ -52,13 +59,16 @@ def index(request):
         articles = pages.get_page(pages.num_pages)  # 返回最后一页
     except:
         articles = pages.get_page(1)  # 返回首页
-    
+    # mark_contrct(articles)
     return render(request, 'index.html', locals())
 
 
 # 显示文章
 def article_show(requset, aid):
     essay = Article.objects.get(id=aid)
+    essay.views = essay.views + 1
+    print("观看的人数为" + str(essay.views))
+    essay.save()
     md = markdown.Markdown(extensions=[
         'markdown.extensions.extra',
         # 语法高亮扩展
@@ -68,7 +78,8 @@ def article_show(requset, aid):
 
     essay.context = md.convert(essay.context)
     essay.toc = md.toc
-    essay.views += 1
+    # 观看人数需要保存到数据中，不然每次都会是1
+    
     comments = essay.comment_set.all().order_by('-created_time')
     for com in comments:
         com.context = markdown.markdown(com.context, extensions=[
@@ -78,6 +89,20 @@ def article_show(requset, aid):
                                     'markdown.extensions.toc',
                                      ])
     formtext = CommentForms()
+
+    # 上一篇和下一篇文章
+    pre_blog = Article.objects.filter(id__lt=aid).order_by('-id')
+    next_blog = Article.objects.filter(id__gt=aid).order_by('id')
+
+    if pre_blog.count() > 0:
+        pre_blog = pre_blog[0]
+    else:
+        pre_blog = None
+
+    if next_blog.count() > 0:
+        next_blog = next_blog[0]
+    else:
+        next_blog = None
 
     if requset.method == 'POST':
         forms = CommentForms(requset.POST)

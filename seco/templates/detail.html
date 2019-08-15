@@ -48,10 +48,22 @@
             <div class="article-detail-other">
                 <h3>相关文章：</h3>
                 <ol>
-                    <li><a href="#">第一篇文章</a></li>
-                    <li><a href="#">第二篇文章</a></li>
-                    <li><a href="#">第三篇文章</a></li>
-                    <li><a href="#">第四篇文章</a></li>
+                   <li>
+                       <label>上一篇：</label> 
+                       {% if pre_blog %}
+                       <a href="{% url 'article:detail' pre_blog.id %}">{{ pre_blog.title }}</a>
+                       {% else %}
+                       不存在
+                       {% endif %}
+                   </li>
+                   <li>
+                        <label>下一篇：</label> 
+                        {% if next_blog %}
+                        <a href="{% url 'article:detail' next_blog.id %}">{{ next_blog.title }}</a>
+                        {% else %}
+                        不存在
+                        {% endif %}
+                    </li>
 
                 </ol>
             </div>
