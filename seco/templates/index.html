@@ -62,7 +62,7 @@
                         <a href="{% url 'article:detail' article.id %}">{{ article.title }}</a>
                     </div>
                     <div class="article-views">
-                        {{ article.context|truncatewords:5|safe }}
+                        {{ article.context|safe|truncatechars:100 }}
                     </div>
                     <div class="article-info">
                         <ul>
