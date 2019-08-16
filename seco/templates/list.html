@@ -99,6 +99,34 @@
                             </li>
                             {% endif %}
                         </ul>
+
+                        <script>
+                            $(document).ready(function(){
+                                var urls = window.location.href;
+                                var params = urls.split('?');
+                                var param_list = params[1].split('&');
+                                var url='';
+                                for(var i=0; i<param_list.length; i++){
+                                    if(param_list[i].indexOf('page') == 0)
+                                    {
+                                        continue;
+                                    }else{
+                                        url+= '&'+param_list[i];
+                                    }
+                                }   
+
+                                console.log(param_list);
+                                console.log('url=',url);
+
+                                var pages = document.querySelectorAll(".pagination.pagination-lg a");
+                                // var pages = page.getElementsByTagName("a");
+                                // var page_a = page.getElementsByTagsName("a");
+                                for(var i=0; i<pages.length; i++){
+                                    pages[i].href += url;
+                                    console.log(pages[i].href)
+                                }
+                            });
+                        </script>
                 </div>
     
             </div>

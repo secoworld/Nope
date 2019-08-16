@@ -165,16 +165,17 @@ def tag_list(request, tag):
 
 def Search(request):
     word = request.GET.get('search')
-
+    print(request.GET)
     if not word:
         list_name = "未找到相关的内容"
         lists = ""
         return render(request, 'list.html', locals())
 
     lists = Article.objects.filter(
-        Q(title__icontains=word) | Q(context__icontains=word))
+        Q(title__icontains=word) | Q(context__icontains=word)).order_by('-created_time')
 
     list_name = word
+    print("lists=",lists)
     pages = Paginator(lists, 10)
     page = request.GET.get('page')
 
