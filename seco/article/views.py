@@ -195,17 +195,22 @@ def update_comment(request):
     data = {}
 
     if form.is_valid():
+        aid = request.POST.get('aid');
+        print("aid=", aid)
         comment = Comment()
         # comment = Us
         comment.user = request.user
+        comment.article = Article.objects.get(id=aid)
         comment.context = form.cleaned_data['context']
         comment.save()
 
         # 返回的参数
         data['status'] = 'success'
         data['username'] = request.user.username
-        data['comment_time'] = comment.created_time.strftime('%Y-%m-%d %H-%M-%s')
+        data['comment_time'] = comment.created_time.strftime('%Y-%m-%d %H-%M-%S')
         data['text'] = comment.context
+        data['commnet_id'] = comment.id
+        print(data)
     else:
         data['status'] = 'Error'
         data['message'] = list(form.errors.values())[0][0]

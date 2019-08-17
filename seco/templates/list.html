@@ -24,7 +24,7 @@
                         <a href="{% url 'article:detail' list.id  %}">{{ list.title }}</a>
                     </div>
                     <div class="article-views">
-                        <p>{{ list.context|truncatewords:5|safe }}</p>
+                        <p>{{ list.context|truncatechars:200 }}</p>
                     </div>
                     <div class="article-info">
                         <ul>
@@ -104,7 +104,13 @@
                             $(document).ready(function(){
                                 var urls = window.location.href;
                                 var params = urls.split('?');
-                                var param_list = params[1].split('&');
+                                if(params[1].indexOf('&') !=  1)
+                                {
+                                    var param_list = params[1].split('&');
+                                }
+                                else{
+                                    var param_list = params[1];
+                                }
                                 var url='';
                                 for(var i=0; i<param_list.length; i++){
                                     if(param_list[i].indexOf('page') == 0)

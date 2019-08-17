@@ -48,16 +48,16 @@
             <div class="article-detail-other">
                 <h3>相关文章：</h3>
                 <ol>
-                   <li>
-                       <label>上一篇：</label> 
-                       {% if pre_blog %}
-                       <a href="{% url 'article:detail' pre_blog.id %}">{{ pre_blog.title }}</a>
-                       {% else %}
-                       不存在
-                       {% endif %}
-                   </li>
-                   <li>
-                        <label>下一篇：</label> 
+                    <li>
+                        <label>上一篇：</label>
+                        {% if pre_blog %}
+                        <a href="{% url 'article:detail' pre_blog.id %}">{{ pre_blog.title }}</a>
+                        {% else %}
+                        不存在
+                        {% endif %}
+                    </li>
+                    <li>
+                        <label>下一篇：</label>
                         {% if next_blog %}
                         <a href="{% url 'article:detail' next_blog.id %}">{{ next_blog.title }}</a>
                         {% else %}
@@ -79,7 +79,7 @@
 
                 {% if request.user.is_authenticated%}
                 <!-- 将post改为json传输数据的形式 -->
-                <form  id="comment_sent" action="{% url 'article:detail' essay.id %}" method="post">
+                <form id="comment_sent" action="{% url 'article:detail' essay.id %}" method="post">
                     {% csrf_token %}
                     <div>
                         <label> 评论内容</label>
@@ -90,7 +90,7 @@
                             {{ formtext.as_p }}
                         </div>
                         <span class="text_danger pull-left" id="comment_error"></span>
-                        <button type="submit" class="btn btn-primary pull-right">提交</button>
+                        <button type="button" id="btn_comment" class="btn btn-primary pull-right">提交</button>
                     </div>
                 </form>
                 {% else %}
@@ -121,7 +121,7 @@
                         </p>
 
                         {{ comment.context|safe }}
-                        <a href="#"><button type="button" class="btn btn-primary pull-right">  回复  </button></a>
+                        <a href="#"><button type="button" class="btn btn-primary pull-right"> 回复 </button></a>
                         <!-- <a href="#comment_sent"><button type="button" class="btn btn-primary pull-right">  回复  </button></a> -->
                     </div>
 
@@ -143,7 +143,62 @@
 
 <!-- javascript 实现ajax增加评论内容  -->
 <script>
-$
+    // var comment=document.getElementById("id_context");
+    var comment = $("#id_context");
+    $("#btn_comment").click(function () {
+        $("#comment_error").text("");
+        // 如果输入的内容为空,提示输入相关的内容
+        if($("#id_context").val() == ""){
+            $("#comment_error").text("请输入不能为空");
+            return false;
+        }
+
+        // 打印textarea的值
+        console.log("评论的内容为:", $("#id_context").val());
+        console.log("forms发送的值为:",$("#comment_sent").serialize()+'&aid={{ essay.id }}' );
+
+        $.ajax({
+            url : "{% url 'article:update_comment' %}",
+            type: 'post',
+            async: true,
+            data: $("#comment_sent").serialize()+'&aid={{ essay.id }}',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if(data['status'] == 'success'){
+                    console.log("发送成功");
+                    var comment_html = $('<div class="commet_list" id="commet_'+data['commnet_id']+'"></div>');
+                    // comment_html.before('<hr>');
+                    var phtml = $("<p></p>");
+                    phtml.append($('<strong style="color: pink"></strong>').text(data['username']));
+                    phtml.append('于');
+                    phtml.append($('<span style="color: green"></span').text(data['comment_time']));
+                    phtml.append("时说：");
+                    comment_html.append(phtml);
+                    comment_html.append(data['text']);
+                    comment_html.append($('<a href="#"></a>').append($('<button type="button" class="btn btn-primary pull-right"></button').text("回复")));
+
+                    // console.log("htnls=", htmls);
+                    $("#comment_dis").prepend(comment_html);
+                    $("#comment_dis").prepend($("<hr>"));
+
+                    // 清空输入框
+                    $("#id_context").val("");
+                    $("span .cm-link.cm-cm-overlay.cm-matchhighlight").text("");
+                    console.log("文本框中的内容为：",  $("#id_context").val() );
+                    console.log(data);
+                }else{
+                    $("comment_error").text(data['message']);
+                    console.log("接收失败");
+                }  
+              },
+              error: function(xhr){
+                  console.log(xhr);
+                  console.log("ajax访问失败!")
+              }
+        })
+    })
+
 
 </script>
 
