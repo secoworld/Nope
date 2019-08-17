@@ -41,6 +41,7 @@ body{
     display:inline-block;
     color:#444;
     vertical-align: top;
+    margin: 10px auto;
 }
 
 /* 设置文章的预览 */
@@ -49,8 +50,17 @@ body{
 
 }
 
+.article .article-item .article-info{
+    color: #333;
+    margin-top:7px;
+}
+.article .article-item .article-info a{
+    color: #a31515;
+}
+
 .article .article-item .article-info ul{
     list-style-type: none;
+    margin: 5px auto;
 }
 
 .article .article-item .article-info ul li{
@@ -383,14 +393,16 @@ body{
 /* 二级菜单css样式  结束 */
 
 .form-style {
-    background-color: #777;
-    /* margin: 50px auto; */
+    background-color: #fff;
+    margin: 50px auto;
     margin-top: 50px;
     padding: 20px 30px;
     font-size: 18px;
     min-height: 40vh;
     min-width: 250px;
     max-width: 300px;
+    border-radius: 5px;
+    vertical-align: middle;
 }
 
 /* 文章的评论区域 */

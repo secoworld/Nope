@@ -61,19 +61,21 @@
                     <div class="article-header">
                         <a href="{% url 'article:detail' article.id %}">{{ article.title }}</a>
                     </div>
+                    <!-- <hr> -->
                     <div class="article-views">
                         {{ article.context|truncatechars:200 }}
                     </div>
                     <div class="article-info">
                         <ul>
-                            <li>作者：<a
+                            <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>作者：<a
                                     href="{% url 'article:home'%}author-{{article.author.id}}">{{ article.author }}</a>
                             </li>
                             </li>
-                            <li>发表日期：<a href="#">{{ article.created_time }} </a></li>
-                            <li>分类: <a
+                            <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>发表日期：<a href="#">{{ article.created_time }} </a></li>
+                            <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>分类: <a
                                     href="{% url 'article:category' article.category.urlname %}">{{ article.category.name }}</a>
                             </li>
+                            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>浏览次数：{{ article.views}}</li>
                         </ul>
                     </div>
                 </div>
