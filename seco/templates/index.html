@@ -58,8 +58,9 @@
 
                 {%  for article in articles %}
                 <div class="article-item">
+                    <a href="{% url 'article:detail' article.id %}">
                     <div class="article-header">
-                        <a href="{% url 'article:detail' article.id %}">{{ article.title }}</a>
+                        <h2>{{ article.title }}</h2>
                     </div>
                     <!-- <hr> -->
                     <div class="article-views">
@@ -78,6 +79,7 @@
                             <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>浏览次数：{{ article.views}}</li>
                         </ul>
                     </div>
+                </a>
                 </div>
                 {% endfor %}
 
