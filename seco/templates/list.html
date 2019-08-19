@@ -11,7 +11,7 @@
         <!-- 列表内容 -->
         <div class=" col-md-12 ">
             <div class="list-detail-group">
-                <h4>列表：{{ list_name }}( {{ lists.count }} )</h4>
+                <h4>列表：{{ list_name }}({{ lists.count }})</h4>
             </div>
         </div>
         <!-- 文章列表 -->
@@ -38,6 +38,9 @@
                         <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>分类:<a
                                 href="{% url 'article:category' list.category.urlname %}">{{ list.category.name}}</a>
                         </li>
+                        <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>浏览次数：{{ list.views}}</li>
+                        <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>评论：{{ list.comment.count}}</li>
+
                     </ul>
                 </div>
                 </a>

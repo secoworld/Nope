@@ -8,6 +8,7 @@ from django.db.models import Q
 import markdown
 # Create your views here.
 
+
 # 通用的样式
 def commont_get(request):
     list_category = [[], ]
@@ -29,36 +30,34 @@ def mark_contrct(objs):
         ])
        
 
+# 获得评论
+def getComment(obj):
+    for art in obj:
+        art.comment = art.comment_set.all()
+    return obj
+
+
 def setPage(request, lists, num):
-    paginator = Paginator(lists, num)
+    total = lists.count
+    pages = Paginator(lists, num)
     page = request.GET.get('page')
 
     try:
-        lists = paginator.get_page(page)
+        lists = pages.get_page(page)
     except EmptyPage:
-        lists = paginator.get_page(paginator.num_pages)  # 返回最后一页
+        lists = pages.get_page(pages.num_pages)  # 返回最后一页
     except:
-        lists = paginator.get_page(1)  # 返回首页
-
-    return lists
+        lists = pages.get_page(1)  # 返回首页
+    lists.count = total     #返回文章的总数
+    return lists, pages
 
 # 开始页面
 
 
 def index(request):
     articles = Article.objects.all().order_by('-id')
-
-    # setPage(request, articles, 5)
-    pages = Paginator(articles, 10)
-   
-    page = request.GET.get('page',1)
-
-    try:
-        articles = pages.get_page(page)
-    except EmptyPage:
-        articles = pages.get_page(pages.num_pages)  # 返回最后一页
-    except:
-        articles = pages.get_page(1)  # 返回首页
+    articles=getComment(articles)
+    articles,pages = setPage(request, articles, 10)
     # mark_contrct(articles)
     return render(request, 'index.html', locals())
 
@@ -126,15 +125,9 @@ def category_list(request, urlname):
         list_name = Category.objects.get(urlname=urlname).name
     except:
         list_name = "你查找的分类为空"
-    pages = Paginator(lists, 10)
-    page = request.GET.get('page')
 
-    try:
-        lists = pages.get_page(page)
-    except EmptyPage:
-        lists = pages.get_page(pages.num_pages)  # 返回最后一页
-    except:
-        lists = pages.get_page(1)  # 返回首页
+    lists, pages = setPage(request, lists, 10)
+    getComment(lists)
 
     return render(request, 'list.html', locals())
 
@@ -148,16 +141,8 @@ def tag_list(request, tag):
     except:
         list_name = "你查找的标签为空"
 
-        pages = Paginator(lists, 10)
-    page = request.GET.get('page')
-
-    try:
-        lists = pages.get_page(page)
-    except EmptyPage:
-        lists = pages.get_page(pages.num_pages)  # 返回最后一页
-    except:
-        lists = pages.get_page(1)  # 返回首页
-
+    lists, pages = setPage(request, lists, 10)
+    getComment(lists)
     return render(request, 'list.html', locals())
 
 # 查找
@@ -176,15 +161,9 @@ def Search(request):
 
     list_name = word
     print("lists=",lists)
-    pages = Paginator(lists, 10)
-    page = request.GET.get('page')
 
-    try:
-        lists = pages.get_page(page)
-    except EmptyPage:
-        lists = pages.get_page(pages.num_pages)  # 返回最后一页
-    except:
-        lists = pages.get_page(1)  # 返回首页
+    lists, pages = setPage(request, lists, 10)
+    getComment(lists)
 
     return render(request, 'list.html', locals())
 
