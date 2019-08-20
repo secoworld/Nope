@@ -34,7 +34,7 @@
                                 href="#">{{ list.author }}</a></li>
                         </li>
                         <li> <span class="glyphicon glyphicon-time"
-                                aria-hidden="true"></span>发表日期：{{ list.created_time|date:"Y/m/d"}}</li>
+                                aria-hidden="true"></span>发表日期：{{  list.created_time|date:"Y/m/d"}}</li>
                         <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>分类:<a
                                 href="{% url 'article:category' list.category.urlname %}">{{ list.category.name}}</a>
                         </li>
