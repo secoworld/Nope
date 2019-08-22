@@ -23,8 +23,13 @@
             <div class=" col-sm-4 ">
                 <div class="content">
                     <h3>友链</h3>
-                    <p>谷歌</p>
-                    <p>百度</p>
+                    {% if friendlink %}
+                        {% for link in friendlink %}
+                            <p><a href="{{ link.url }}">{{link.name}}</a></p>
+                        {% endfor %}
+                    {% else %}
+                        <p>暂无友链</p>
+                    {% endif %}
                 </div>
 
             </div>

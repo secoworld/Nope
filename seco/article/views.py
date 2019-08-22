@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from .forms import CommentForms
 from django.db.models import Q
 import markdown
+from FriendLink.models import FriendLink
 # Create your views here.
 
 
@@ -16,6 +17,7 @@ def commont_get(request):
     categorys = Category.objects.all()
     first_category = Category.objects.filter(rank=1)
     second_category = Category.objects.filter(rank=2)
+    friendlink = FriendLink.objects.all()
     tags = Tags.objects.all()
 
     return locals()
