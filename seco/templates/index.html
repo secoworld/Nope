@@ -59,28 +59,31 @@
                 {%  for article in articles %}
                 <div class="article-item">
                     <a href="{% url 'article:detail' article.id %}">
-                    <div class="article-header">
-                        <h2>{{ article.title }}</h2>
-                    </div>
-                    <!-- <hr> -->
-                    <div class="article-views">
-                        {{ article.context|truncatechars:200 }}
-                    </div>
+                        <div class="article-header">
+                            <h2>{{ article.title }}</h2>
+                        </div>
+                        <!-- <hr> -->
+                        <div class="article-views">
+                            {{ article.context|truncatechars:200 }}
+                        </div>
+                    </a>
                     <div class="article-info">
                         <ul>
-                            <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>作者：<a
-                                    href="{% url 'article:home'%}author-{{article.author.id}}">{{ article.author }}</a>
+                            <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<a
+                                    href="#">{{ article.author }}</a>
                             </li>
+                            <li><span class="glyphicon glyphicon-time"
+                                    aria-hidden="true"></span>&nbsp;{{ article.created_time|date:"Y / m / d" }} </li>
+                            <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <a
+                                    href="{% url 'article:category' article.category.urlname %}">&nbsp;{{ article.category.name }}</a>
                             </li>
-                            <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span>发表日期：<a href="#">{{ article.created_time }} </a></li>
-                            <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>分类: <a
-                                    href="{% url 'article:category' article.category.urlname %}">{{ article.category.name }}</a>
-                            </li>
-                            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>浏览次数：{{ article.views}}</li>
-                            <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>评论：{{ article.comment.count}}</li>
+                            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> &nbsp;
+                                {{ article.views}}</li>
+                            <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                评论：{{ article.comment.count}}</li>
                         </ul>
                     </div>
-                </a>
+
                 </div>
                 {% endfor %}
 

@@ -23,32 +23,35 @@
                     <a href="{% url 'article:detail' list.id  %}">
                         <div class="article-header">
                             {{ list.title }}
+
+                        </div>
+                        <div class="article-views">
+                            <p>{{ list.context|truncatechars:200 }}</p>
+                        </div>
+                    </a>
+                    <div class="article-info">
+                        <ul>
+                            <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<a
+                                    href="#">{{ list.author }}</a></li>
+                            </li>
+                            <li> <span class="glyphicon glyphicon-time"
+                                    aria-hidden="true"></span>&nbsp;{{  list.created_time|date:"Y/m/d"}}</li>
+                            <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;<a
+                                    href="{% url 'article:category' list.category.urlname %}">&nbsp;{{ list.category.name}}</a>
+                            </li>
+                            <li><span class="glyphicon glyphicon-eye-open"
+                                    aria-hidden="true"></span>&nbsp;&nbsp;{{ list.views}}</li>
+                            <li><span class="glyphicon glyphicon-edit"
+                                    aria-hidden="true"></span>评论：{{ list.comment.count}}</li>
+
+                        </ul>
+                    </div>
                     </a>
                 </div>
-                <div class="article-views">
-                    <p>{{ list.context|truncatechars:200 }}</p>
-                </div>
-                <div class="article-info">
-                    <ul>
-                        <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>作者：<a
-                                href="#">{{ list.author }}</a></li>
-                        </li>
-                        <li> <span class="glyphicon glyphicon-time"
-                                aria-hidden="true"></span>发表日期：{{  list.created_time|date:"Y/m/d"}}</li>
-                        <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>分类:<a
-                                href="{% url 'article:category' list.category.urlname %}">{{ list.category.name}}</a>
-                        </li>
-                        <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>浏览次数：{{ list.views}}</li>
-                        <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>评论：{{ list.comment.count}}</li>
-
-                    </ul>
-                </div>
-                </a>
-            </div>
-            {% endfor %}
+                {% endfor %}
 
 
-            <!-- {%  for article in articles %}
+                <!-- {%  for article in articles %}
                             <div class="article-item">
                                 <div class="article-header">
                                     <a href="{% url 'blog:detail' article.id %}">{{ article.title }}</a>
@@ -66,89 +69,89 @@
                             {% endfor %} -->
 
 
+            </div>
+
         </div>
 
-    </div>
+        <!-- 设置文章的页码 -->
+        <div class="col-md-12">
+            <div class="panginator">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-lg">
+                        {% if lists.has_previous %}
+                        <li>
+                            <a href="?page={{ lists.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="?page={{ lists.number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
 
-    <!-- 设置文章的页码 -->
-    <div class="col-md-12">
-        <div class="panginator">
-            <nav aria-label="Page navigation">
-                <ul class="pagination pagination-lg">
-                    {% if lists.has_previous %}
-                    <li>
-                        <a href="?page={{ lists.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="?page={{ lists.number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
+                        {% for page in pages.page_range %}
+                        <li {% if page == lists.number %} class="active" {% endif %}><a
+                                href="?page={{ page }}">{{ page }}</a></li>
+                        {% endfor%}
 
-                    {% for page in pages.page_range %}
-                    <li {% if page == lists.number %} class="active" {% endif %}><a
-                            href="?page={{ page }}">{{ page }}</a></li>
-                    {% endfor%}
+                        {% if lists.has_next %}
+                        <li>
+                            <a href="?page={{ lists.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="?page={{ lists.number}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
 
-                    {% if lists.has_next %}
-                    <li>
-                        <a href="?page={{ lists.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="?page={{ lists.number}}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
+                    <script>
+                        $(document).ready(function () {
+                            var urls = window.location.href;
+                            if (urls.indexOf('?') != -1) {
+                                var params = urls.split('?');
 
-                <script>
-                    $(document).ready(function () {
-                        var urls = window.location.href;
-                        if (urls.indexOf('?') != -1) {
-                            var params = urls.split('?');
+                                if (params[1].indexOf('&') != 1) {
+                                    var param_list = params[1].split('&');
+                                }
+                                else {
+                                    var param_list = params[1];
+                                }
+                                var url = '';
+                                for (var i = 0; i < param_list.length; i++) {
+                                    if (param_list[i].indexOf('page') == 0) {
+                                        continue;
+                                    } else {
+                                        url += '&' + param_list[i];
+                                    }
+                                }
 
-                            if (params[1].indexOf('&') != 1) {
-                                var param_list = params[1].split('&');
-                            }
-                            else {
-                                var param_list = params[1];
-                            }
-                            var url = '';
-                            for (var i = 0; i < param_list.length; i++) {
-                                if (param_list[i].indexOf('page') == 0) {
-                                    continue;
-                                } else {
-                                    url += '&' + param_list[i];
+                                // console.log(param_list);
+                                // console.log('url=', url);
+
+                                var pages = document.querySelectorAll(".pagination.pagination-lg a");
+                                // var pages = page.getElementsByTagName("a");
+                                // var page_a = page.getElementsByTagsName("a");
+                                for (var i = 0; i < pages.length; i++) {
+                                    pages[i].href += url;
+                                    // console.log(pages[i].href)
                                 }
                             }
+                        });
+                    </script>
+            </div>
 
-                            // console.log(param_list);
-                            // console.log('url=', url);
-
-                            var pages = document.querySelectorAll(".pagination.pagination-lg a");
-                            // var pages = page.getElementsByTagName("a");
-                            // var page_a = page.getElementsByTagsName("a");
-                            for (var i = 0; i < pages.length; i++) {
-                                pages[i].href += url;
-                                // console.log(pages[i].href)
-                            }
-                        }
-                    });
-                </script>
         </div>
 
+
     </div>
-
-
-</div>
 
 </div>
 {% endblock %}

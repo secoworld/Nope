@@ -55,7 +55,12 @@ body{
     margin-top:7px;
 }
 .article .article-item .article-info a{
-    color: #a31515;
+    color: #337ab7;
+}
+
+.article .article-item .article-info a:hover{
+    transform: scale(1.5);
+    color: red;
 }
 
 .article .article-item .article-info ul{
