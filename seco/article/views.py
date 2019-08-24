@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from .models import Article, Category, Tags
+from .models import Article, Category, Tags, Carousel
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from comment.models import Comment
 from django.http import JsonResponse
@@ -7,6 +7,7 @@ from .forms import CommentForms
 from django.db.models import Q
 import markdown
 from FriendLink.models import FriendLink
+import requests
 # Create your views here.
 
 
@@ -17,6 +18,9 @@ def commont_get(request):
     categorys = Category.objects.all()
     first_category = Category.objects.filter(rank=1)
     second_category = Category.objects.filter(rank=2)
+    carousal = Carousel.objects.filter(showFlag=True)
+    if carousal:
+        print(carousal[0].img)
     friendlink = FriendLink.objects.all()
     tags = Tags.objects.all()
 
@@ -198,3 +202,25 @@ def update_comment(request):
 
         # 以Json的形式返回数据
     return JsonResponse(data)
+
+
+def  urls_push(request):
+    url = 'http://data.zz.baidu.com/urls?site=https://www.liulongtao.com&token=kHA6zh1nAq4xtHkW'
+    base_url = 'https://www.liulongtao.com/article/'
+    header = {
+    'User-Agent': 'curl/7.12.1' ,
+    'Host': 'data.zz.baidu.com' ,
+    'Content-Type': 'text/plain' ,
+    'Content-Length': '83',
+    }
+    articles = Article.objects.all()
+    data =[]
+    for art in articles:
+        data.append(base_url+str(art.id))
+
+    # 将data数据转换为文本样式
+    data = '\n'.join(data)
+    req  = requests.post(url, data = data, headers = header)
+    print(req.json())
+
+    return req.json()

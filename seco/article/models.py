@@ -59,3 +59,17 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+# 设置轮播图
+class Carousel(models.Model):
+    name = models.CharField("图片名称", max_length=50)
+    title = models.CharField("标题", max_length=100, null=True, blank=True)
+    context = models.CharField("简介", max_length =  200, null=True, blank=True)
+    img = models.ImageField("展示的图片", upload_to="carousel/%Y/%m/", height_field=None, width_field=None, max_length=None, null=True, blank=True)
+    showFlag = models.BooleanField("设置是否显示", default=False)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "轮播图"
+        verbose_name_plural = "全部轮播图"

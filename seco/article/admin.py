@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Tags, Category
+from .models import Article, Tags, Category, Carousel
 # Register your models here.
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -13,3 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Tags)
 class TagsAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
+
+@admin.register(Carousel)
+class CarouselAdmin(admin.ModelAdmin):
+    list_display = ['name', 'title', 'context', 'showFlag']
+    ordering = ['-id']
+    list_editable = ['showFlag']

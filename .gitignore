@@ -62,3 +62,4 @@ migrations/*
 .idea/
 !env/*
 *.docx
+media/
