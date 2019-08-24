@@ -63,3 +63,4 @@ migrations/*
 !env/*
 *.docx
 media/
+Log/

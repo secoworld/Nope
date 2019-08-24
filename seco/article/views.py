@@ -8,6 +8,7 @@ from django.db.models import Q
 import markdown
 from FriendLink.models import FriendLink
 import requests
+import time
 # Create your views here.
 
 
@@ -204,7 +205,7 @@ def update_comment(request):
     return JsonResponse(data)
 
 
-def  urls_push(request):
+def  urls_push():
     url = 'http://data.zz.baidu.com/urls?site=https://www.liulongtao.com&token=kHA6zh1nAq4xtHkW'
     base_url = 'https://www.liulongtao.com/article/'
     header = {
@@ -221,6 +222,7 @@ def  urls_push(request):
     # 将data数据转换为文本样式
     data = '\n'.join(data)
     req  = requests.post(url, data = data, headers = header)
+    print(time.asctime(time.localtime()), end=' : ')
     print(req.json())
 
     return req.json()

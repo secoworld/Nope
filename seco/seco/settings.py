@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'mdeditor',
     'users',
     'FriendLink',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -198,3 +199,13 @@ MDEDITOR_CONFIGS = {
         },
 
 }
+
+
+# 设置Django-crontab定时任务
+CRONJOBS = [
+    #执行的任务
+    ('* 23 * * *', 'article.views.urls_push' , '>>'+os.path.join(BASE_DIR, 'Log/url_push.log')),
+
+]
+# 增加中文显示
+CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'

@@ -1,5 +1,6 @@
 import os
 import django
+import time
 
 #设置环境
 import sys
@@ -49,4 +50,7 @@ def  urls_push(url, base_url, articles):
 if __name__ == "__main__":
     articles = get_article()
     req = urls_push(url, base_url, articles)
+    print(time.asctime(time.localtime()), end=' ')
+    print(req)
+
     print(req)
