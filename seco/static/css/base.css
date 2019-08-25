@@ -434,3 +434,10 @@ body{
 .article-detail-group a{
     color: #337ab7;
 }
+
+/* 设置表格样式  */
+.article-detail-content td,th{
+    border: 1px solid #95985a;
+    padding: 2px 10px;
+}
+
