@@ -65,3 +65,4 @@ migrations/*
 media/
 Log/
 env/
+venv/
