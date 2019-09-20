@@ -40,7 +40,7 @@
 
             <!-- 导航栏的的搜索框 -->
             <div class="search navbar-right">
-                <form class="navbar-form navbar-left"  action="{% url 'article:search'%}">
+                <form class="navbar-form navbar-left" action="{% url 'article:search'%}">
                     <!-- {% csrf_token %} -->
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" id="search" name="search">
@@ -61,6 +61,14 @@
                         <li><a href="{% url 'article:home' %}admin/">管理</a></li>
                         <li><a href="{% url 'users:logout' %}">退出</a></li>
                     </ul>
+
+                    <!-- <button type="button" class="btn btn-default ">
+                        {{ user.username }}
+                    </button>
+                    <button type="button" class="btn btn-primary "><a
+                            href="{% url 'article:home' %}admin/">管理</a></button>
+                    <button type="button" class="btn btn-danger "><a href="{% url 'users:logout' %}">退出</a></button> -->
+
                 </div>
                 {% else %}
                 <div class="btn-group" style="margin:7px auto;">
@@ -68,6 +76,9 @@
                             class="btn btn-default">登录</button> </a>
                 </div>
                 {% endif%}
+
+
+
             </div>
 
         </div>

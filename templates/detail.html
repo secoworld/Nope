@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+<!-- 返回的关键字 -->
+{% block head_descript %}
+<meta name="Description" content="{{ essay.context|truncatechars:200 }}">
+{% endblock %}
+
 
 <!-- 拓展标题 -->
 {% block title %} 刘龙韬的博客-文章：{{ essay.title }} {% endblock title %}

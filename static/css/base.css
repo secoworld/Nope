@@ -441,3 +441,6 @@ body{
     padding: 2px 10px;
 }
 
+.dropdown-menu li {
+    z-index: 100;
+}
