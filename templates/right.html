@@ -24,7 +24,7 @@
             <ul class="side-bar-ul">
     
                 {% for category in categorys %}
-                <li><a href="{% url 'article:category' category.urlname %}">{{ category.name }} ({{ category.count }})</a></li>
+                <li><a href="{% url 'article:category' category.urlname %}">{{ category.name }} ({{ category.article_set.count }})</a></li>
                 {% endfor %}
     
                 <!-- <li><a href="#">Django</a></li>
@@ -41,7 +41,7 @@
         <div class="panel-body ">
             <ul class="side-bar-ul">
                 {% for tag in tags %}
-                <li><a href="{% url 'article:tags' tag.name %}">{{ tag.name}}</a></li>
+                <li><a href="{% url 'article:tags' tag.name %}">{{ tag.name}} ({{ tag.article_set.count}})</a></li>
                 {% endfor %}
     
                 <!-- <li><a href="#">Django</a></li>

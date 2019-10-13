@@ -62,7 +62,7 @@ migrations/*
 .idea/
 !env/*
 *.docx
-media/
+# media/
 Log/
 env/
 venv/
