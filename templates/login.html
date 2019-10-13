@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %} 登录 {% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="form-style">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ forms.username.id_for_tag }}">用户名</label>
+                {{ forms.username }}
+                {{ forms.username.error }}
+
+            </div>
+            <div class="form-group">
+                <label for="{{ forms.username.id_for_tag }}">密码</label>
+                {{ forms.password }}
+                {{ forms.password.error }}
+            </div>
+            <input type="hidden" name="next_page" value={{next_page}}>
+            <button type="submit" class="btn btn-primary">登录</button>
+            <a href="{% url 'users:register' %}"><button type="button" class="btn btn-primary">注册</button></a>
+
+        </form>
+    </div>
+
+
+
+</div>
+
+{% endblock %}
+
+{% block right-menu %}
+{% endblock %}

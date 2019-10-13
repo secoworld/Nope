@@ -1,45 +1,53 @@
-{% load staticfiles %}
-<section class="widget post-right-item">
-    <h4 class="post-right-title">热门推荐</h4>
-    <ul class="post-hot clearfix">
-        {% for r in remen %}
-        <li>
-            <div class="img">
 
-                <a href="{% url 'index' %}show-{{ r.id }}"
-                   title="{{ r.title }}"><img
-                        src="{% url 'index' %}media/{{ r.img }}"
-                        srcset="{% url 'index' %}media/{{ r.img }}"
-                        alt="" class="wp-post-image" width="120"
-                        height="80"/></a>
-            </div>
-            <a href="{% url 'index' %}show-{{ r.id }}" title="{{ r.title }}"
-               target="_blank" class="title">{{ r.title }}</a>
-        </li>
-        {% endfor %}
 
-    </ul>
-</section>
-
-</section>
-<section class="widget post-right-item"><h4 class="post-right-title">所有标签</h4>
-    <div class="tags">
-        {% for t in tags %}
-        <a href="{% url 'index' %}tags/{{ t.name }}">{{ t.name }}</a>
-        {% endfor %}
-
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            最新文章
+        </div>
+        <div class="panel-body ">
+            <ol class="side-bar-ol">
+                {% for article in hot_articles %}
+                <li><a href="{% url 'article:detail' article.id %}">{{ article.title }}</a></li>
+                {% endfor %}
+    
+                <!-- <li><a href="#">我的第二个文章</a></li>
+                        <li><a href="#">我的第三个文章</a></li> -->
+            </ol>
+        </div>
     </div>
-</section>
-</section><!-- /关注我们 -->
-<!-- <div class="post-right-item">
-    <h4 class="post-right-title">关注我们</h4>
-    <div class="wid-about">
-        <p>Django学习网站</p>
-        <img src="{% static 'picture/weixinqr.jpg' %}" alt="微信二维码" width="160" height="160">
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            分类
+        </div>
+        <div class="panel-body">
+            <ul class="side-bar-ul">
+    
+                {% for category in categorys %}
+                <li><a href="{% url 'article:category' category.urlname %}">{{ category.name }} ({{ category.count }})</a></li>
+                {% endfor %}
+    
+                <!-- <li><a href="#">Django</a></li>
+                            <li><a href="#">html</a></li>
+                            <li><a href="#">java</a></li> -->
+            </ul>
+        </div>
     </div>
-    <div class="wid-about">
-        <p><strong>联系方式:</strong></p>
-        <p>QQ:11</p>
-        <p>Email：11@qq.com</p>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            标签
+        </div>
+        <div class="panel-body ">
+            <ul class="side-bar-ul">
+                {% for tag in tags %}
+                <li><a href="{% url 'article:tags' tag.name %}">{{ tag.name}}</a></li>
+                {% endfor %}
+    
+                <!-- <li><a href="#">Django</a></li>
+                            <li><a href="#">html</a></li>
+                            <li><a href="#">java</a></li> -->
+            </ul>
+        </div>
     </div>
-</div> -->
+
