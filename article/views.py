@@ -9,6 +9,7 @@ import markdown
 from FriendLink.models import FriendLink
 import requests
 import time
+import collections
 # Create your views here.
 
 
@@ -226,3 +227,33 @@ def  urls_push():
     print(req.json())
 
     return req.json()
+
+
+
+# 对评论进行整理
+def CommnetTree(comments):
+    # 首先建立一个顺序的字典，然后判断是否存在父级评论，如果存在父级评论的话，
+    # 就将评论加入到字典中
+    comment_tree = collections.OrderedDict()
+
+    for comment in comments:
+        if comment.parent is None:
+            # 如果是根评论，那么将设为空得子集
+            comment_tree[comment] = collections.OrderedDict()
+        else:
+            # 如果不是根评论，那么寻找相关的父级
+            CommentSearch(comment_tree, comment)
+    return comment_tree
+
+# 在字典中寻找相关的父级评论
+def CommentSearch(comment_tree, comment):
+    # 在字典中一个接一个的寻找相关的字典
+    for key,value  in comment_tree.items():
+        # 如果找到评论，那么将自己存入到字典中
+        if key[0] == comment_tree[comment]:
+            comment_tree[key][comment] = collections.OrderedDict()
+            return 
+        else:
+            # 在当前第一个递归中寻找父节点
+            CommentSearch(comment_tree[key], comment)
+        
