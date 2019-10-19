@@ -32,6 +32,7 @@ body{
     padding: 4px 10px;
     border-radius: 5px;
     box-shadow: 4px 4px #999;
+    /* height: 200px; */
 
 }
 
@@ -473,6 +474,96 @@ body{
     padding-bottom: 0.5em;
     background: rgba(199, 199, 199, 0.8);
     border-bottom: 2px solid rgb(146, 146, 146);
+}
+
+
+/* 设置首页显示的文章的图片大小 */
+.article-img-show{
+    max-width: 100%;
+    max-height: 100%;
+    height: 150px;
+}
+
+/* ----------设置自已的一些样式-------------- */
+.m-fillh{
+    height: 100%;
+}
+
+.m-fillw{
+    width: 100%;
+}
+
+.m-fill{
+    width: 100%;
+    height: 100%;
+}
+
+.m-center{
+    margin: auto;
+}
+
+.m-middle{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.m-border{
+    border: 1px solid black;
+}
+
+.m-radius{
+    border: 0px solid black;
+    border-radius: 10px;
+}
+
+.m-item{
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 3px 2px 5px #00ABA9;
+    min-height: 200px;
+    height: 200px;
+    width: 100%;
+    margin-bottom: 1em;
+    background-color: #fff;
+    padding: 1em .5em;
+}
+
+.m-title{
+    margin: auto;
+    padding-left: 1em;
+    text-align: left;
+    font-size: 21px;
+    font-weight: 200;
+    height: 20%;
+}
+
+.m-content{
+    height: 60%;
+    padding: .6em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.m-info{
+    height: 20%;
+    bottom: 0;
+}
+
+.m-img{
+   width: 100%;
+   width: 100%;
+}
+
+.m-ul-inline{
+    list-style-type: none;
+    margin: 5px auto;
+}
+
+.m-ul-inline li{
+    display: inline;
+    margin:  auto .5em;
 }
 
 /* 设置手机端 */

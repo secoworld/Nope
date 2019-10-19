@@ -35,8 +35,8 @@
                     <div class="item active">
                         <img src="/media/{{ car.img }}" alt="{{ car.name }}" style="width:100%;height:300px">
                         <div class="carousel-caption">
-                                {%if car.title %} <h3>{{ car.title }}</h3>{% endif %}
-                                {%if car.context %}<p>{{ car.context }}</p> {% endif %}
+                            {%if car.title %} <h3>{{ car.title }}</h3>{% endif %}
+                            {%if car.context %}<p>{{ car.context }}</p> {% endif %}
                         </div>
                     </div>
                     {% else %}
@@ -46,8 +46,8 @@
 
                             {%if car.title %} <h3>{{ car.title }}</h3>{% endif %}
                             {%if car.context %}<p>{{ car.context }}</p> {% endif %}
-                            
-                            
+
+
                         </div>
                     </div>
                     {% endif %}
@@ -114,35 +114,64 @@
             <div class="article">
 
                 {%  for article in articles %}
-                <div class="article-item">
-                    <a href="{% url 'article:detail' article.id %}">
-                        <div class="article-header">
-                            <h2>{{ article.title }}</h2>
+                <div class="m-item row" style="margin-left: 0;"> 
+                    <!-- 设置左侧样式 -->
+                    <div class="col-md-8 m-fillh">
+                        <div class="m-title ">
+                            <a href="{% url 'article:detail' article.id %}">
+                                {{ article.title }}
+                            </a>
                         </div>
-                        <!-- <hr> -->
-                        <div class="article-views">
-                            {{ article.context|truncatechars:200 }}
+
+                        <div class="m-content">
+
+                            <a href="{% url 'article:detail' article.id %}">
+                        
+                                {{ article.context|truncatechars_html:100|safe }}
+                               
+                            </a>
                         </div>
-                    </a>
-                    <div class="article-info">
-                        <ul>
-                            <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<a
-                                    href="#">{{ article.author }}</a>
-                            </li>
-                            <li><span class="glyphicon glyphicon-time"
-                                    aria-hidden="true"></span>&nbsp;{{ article.created_time|date:"Y / m / d" }} </li>
-                            <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <a
-                                    href="{% url 'article:category' article.category.urlname %}">&nbsp;{{ article.category.name }}</a>
-                            </li>
-                            <li><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> &nbsp;
-                                {{ article.views}}</li>
-                            <li><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                评论：{{ article.comment.count}}</li>
-                        </ul>
+
+                        <div class="m-info ">
+                            <ul class="m-ul-inline">
+                                <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<a
+                                        href="#">{{ article.author }}</a></li>
+                                </li>
+                                <li> <span class="glyphicon glyphicon-time"
+                                        aria-hidden="true"></span>&nbsp;{{  article.created_time|date:"Y/m/d"}}</li>
+                                <li><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;<a
+                                        href="{% url 'article:category' article.category.urlname %}">&nbsp;{{ article.category.name}}</a>
+                                </li>
+                                <li><span class="glyphicon glyphicon-eye-open"
+                                        aria-hidden="true"></span>&nbsp;&nbsp;{{ article.views}}</li>
+                                <li><span class="glyphicon glyphicon-edit"
+                                        aria-hidden="true"></span>评论：{{ article.comment.count}}</li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- 设置图片 -->
+                    <div class="col-md-4 m-fillh">
+                        <div class=" m-fill">
+                            {% if article.img %}
+                            <div class=" m-fill">
+                                <img class=" m-fill m-radius" src="media/{{ article.img }}" alt="">
+                            </div>
+
+                            {% else %}
+                            <div class=" m-fill">
+                                <img class=" m-fill m-radius" src="https://picsum.photos/200/300?random={{article.id}}" alt="">
+                            </div>
+
+                            {% endif %}
+                        </div>
                     </div>
 
                 </div>
                 {% endfor %}
+
 
                 <!-- <div class="article-item">
                                     <div class="article-header">
