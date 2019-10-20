@@ -116,7 +116,7 @@
                 {%  for article in articles %}
                 <div class="m-item row" style="margin-left: 0;"> 
                     <!-- 设置左侧样式 -->
-                    <div class="col-md-8 m-fillh">
+                    <div class="col-md-8  col-sm-12 col-xs-12 m-index-content">
                         <div class="m-title ">
                             <a href="{% url 'article:detail' article.id %}">
                                 {{ article.title }}
@@ -153,20 +153,18 @@
                     </div>
 
                     <!-- 设置图片 -->
-                    <div class="col-md-4 m-fillh">
-                        <div class=" m-fill">
+                    <div class="col-md-4  col-sm-12 col-xs-12 m-index-img">
                             {% if article.img %}
-                            <div class=" m-fill">
-                                <img class=" m-fill m-radius" src="media/{{ article.img }}" alt="">
+                            <div class=" m-fill m-img">
+                                <img class="  m-radius  m-fill m-img" src="media/{{ article.img }}" alt="">
                             </div>
 
                             {% else %}
-                            <div class=" m-fill">
-                                <img class=" m-fill m-radius" src="https://picsum.photos/200/300?random={{article.id}}" alt="">
+                            <div class=" m-fill m-img">
+                                <img class="  m-radius  m-fill m-img" src="https://picsum.photos/200/300?random={{article.id}}" alt="">
                             </div>
 
                             {% endif %}
-                        </div>
                     </div>
 
                 </div>
