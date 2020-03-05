@@ -66,3 +66,4 @@ migrations/*
 Log/
 env/
 venv/
+./venv/
