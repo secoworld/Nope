@@ -11,6 +11,7 @@ urlpatterns =[
     path('tags/<tag>', views.tag_list, name="tags"),
     path('search/', views.Search, name="search"),
     path('update/', views.update_comment, name="update_comment"),
+    path('api/category/<urlname>', views.json_list, name="json_list"),
     path('', views.index, name="home"),
 ]
 

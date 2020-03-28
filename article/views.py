@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponse
 from .models import Article, Category, Tags, Carousel
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from comment.models import Comment
-from django.http import JsonResponse
+from django.http import JsonResponse, response
 from .forms import CommentForms
 from django.db.models import Q
 import markdown
@@ -10,6 +10,8 @@ from FriendLink.models import FriendLink
 import requests
 import time
 import collections
+import json
+from django.core import serializers
 # Create your views here.
 
 
@@ -136,9 +138,26 @@ def category_list(request, urlname):
 
     lists, pages = setPage(request, lists, 10)
     getComment(lists)
+    # print(locals());
 
     return render(request, 'list.html', locals())
 
+#使用json返回对象
+def json_list(request, urlname):
+    lists = Article.objects.filter(Q(category__urlname=urlname) | Q(
+        category__father__urlname=urlname)).order_by('-id')
+    # 处理QuerySet, 转化成为json
+    # ret =  json.dumps(lists, ensure_ascii=False)
+    try:
+        list_name = Category.objects.get(urlname=urlname).name
+    except:
+        list_name = "你查找的分类为空"
+
+    lists, pages = setPage(request, lists, 10)
+    # getComment(lists)
+
+    ret  = serializers.serialize("json", lists);
+    return JsonResponse(ret, safe=False)
 
 # 显示列表
 def tag_list(request, tag):

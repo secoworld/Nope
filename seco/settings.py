@@ -91,7 +91,8 @@ DATABASES = {
         'NAME': 'mysite',
         'HOST': '127.0.0.1',
         'USER': 'root',
-        'PASSWORD': '19960311.liu',
+        'PASSWORD': '',
+        # 'PASSWORD': '19960311.liu',
         'PORT': '3306',
     },
 }
