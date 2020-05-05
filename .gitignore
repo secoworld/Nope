@@ -70,3 +70,4 @@ venv/
 ./venv/
 config.json
 
+!static/plugins/**/lib
