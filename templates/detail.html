@@ -233,8 +233,8 @@
     </div>
 
     {% block script %}
-{#        <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>#}
-{#        <link rel="stylesheet" href="{% static 'css/prism.css' %}">#}
+        {#        <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>#}
+        {#        <link rel="stylesheet" href="{% static 'css/prism.css' %}">#}
         <link rel="stylesheet" href="{% static 'css/tomorrow.css' %}">
         <script src="{% static 'js/highlight.min.js' %}"></script>
         <script>hljs.initHighlightingOnLoad();</script>
@@ -381,7 +381,7 @@
             parent_head.append($("<strong></strong>").attr("style", "color:#ff0000").text(comment.name))
                 .append(" 于 ").append($("<strong></strong>").attr("style", "color: green").text(created_time)
             ).append(" 时说:");
-            var parent_body = $("<div></div>").append(marked(comment.context));
+            var parent_body = $("<div id='comment_" + comment.id + "'></div>").append(marked(comment.context));
             var parent_foot = $("<div></div>").addClass("comment-list-button").append($("<button></button>")
                 .addClass("btn btn-primary button-right reply-btn").text("回复"));
 
@@ -471,6 +471,16 @@
                 height: "400px",
                 // markdown: "xxxx",     // dynamic set Markdown text
                 path: "{% static 'plugins/editor.md/lib/' %}",  // Autoload modules mode, codemirror, marked... dependents libs path
+                theme: "dark",//工具栏主题
+                previewTheme: "dark",//预览主题
+                editorTheme: "pastel-on-dark",//编辑主题
+                saveHTMLToTextarea: true,
+                emoji: true,
+                taskList: true,
+                tocm: true,         // Using [TOCM]
+                tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,             // 开启流程图支持，默认关闭
+                {#sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,#}
             });
 
             return editor_name;
