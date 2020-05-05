@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from pathlib import Path
+import json
 # 引入MySQL数据库
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'article',
     'comment',
+    'ckeditor',
     'mdeditor',
     'users',
     'FriendLink',
@@ -81,28 +84,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'seco.wsgi.application'
 
+# 加python读取json文件，加载数据库的配置
+CONFIG_PATH = os.path.join(BASE_DIR, 'config.json')
+# config_file = Path(CONFIG_PATH)
 
 # Database https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        # 将数据库换成自己的数据库
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysite',
-        'HOST': '127.0.0.1',
-        'USER': 'root',
-        'PASSWORD': '19960311.liu',
-        'PORT': '3306',
-    },
-}
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
+# 如果存在config.json文件，且配置了对应的dbconfig
+if os.path.exists(CONFIG_PATH):
+    with open(CONFIG_PATH, 'r') as f:
+        config = json.load(f)
+        if 'dbconfig' in config.keys():
+            DATABASES = config['dbconfig']
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -134,7 +136,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# 解决了时间相差8个小时的问题，将USE_TZ = True注释掉即可
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -198,6 +201,37 @@ MDEDITOR_CONFIGS = {
         'sequence': True  # 是否开启序列图功能
         },
 
+}
+
+CKEDITOR_CONFIGS = {
+    # django-ckeditor默认使用default配置
+    'default': {
+        # 编辑器宽度自适应
+        'width':'auto',
+        'height':'250px',
+        # tab键转换空格数
+        'tabSpaces': 4,
+        # 工具栏风格
+        'toolbar': 'Custom',
+        # 工具栏按钮
+        'toolbar_Custom': [
+            # 表情 代码块
+            ['Smiley', 'CodeSnippet'],
+            # 字体风格
+            ['Bold', 'Italic', 'Underline', 'RemoveFormat', 'Blockquote'],
+            # 字体颜色
+            ['TextColor', 'BGColor'],
+            # 链接
+            ['Link', 'Unlink'],
+            # 列表
+            ['NumberedList', 'BulletedList'],
+            # 最大化
+            ['Maximize']
+        ],
+        # 加入代码块插件
+        'extraPlugins': ','.join(['codesnippet','prism', 'widget', 'lineutils']),
+
+    }
 }
 
 

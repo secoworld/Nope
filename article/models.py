@@ -4,6 +4,7 @@ from django.shortcuts import reverse
 from mdeditor.fields import MDTextField
 # Create your models here.
 # 创建models规定article的属性
+from ckeditor.fields import RichTextField
 
 # 分类
 class Category(models.Model):
@@ -35,7 +36,6 @@ class Tags(models.Model):
         return self.name
 
 
-
 # 文章
 class Article(models.Model):
     
@@ -51,7 +51,8 @@ class Article(models.Model):
     modefid_time = models.DateTimeField("修改时间", auto_now=True, auto_now_add=False)
     views = models.IntegerField("观看人数", default=0)
     img = models.ImageField("图片", upload_to="article/%Y/%m/%d/", height_field=None, width_field=None, max_length=None, null=True, blank=True)
-    
+    # 增加评论
+    # comment = models.OneToManyField()
     class Meta:
         verbose_name = "文章"
         verbose_name_plural = "全部文章"
@@ -63,7 +64,7 @@ class Article(models.Model):
 class Carousel(models.Model):
     name = models.CharField("图片名称", max_length=50)
     title = models.CharField("标题", max_length=100, null=True, blank=True)
-    context = models.CharField("简介", max_length =  200, null=True, blank=True)
+    context = models.CharField("简介", max_length=200, null=True, blank=True)
     img = models.ImageField("展示的图片", upload_to="carousel/%Y/%m/", height_field=None, width_field=None, max_length=None, null=True, blank=True)
     showFlag = models.BooleanField("设置是否显示", default=False)
 

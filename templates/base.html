@@ -37,10 +37,11 @@
 
 
     <!-- 引入markdwon的高亮语法 -->
-    <link rel="stylesheet" href="{% static 'css/monokai.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/monokai.css' %}">#}
 
     <!-- 导入bootstrap和js文件 -->
     <script src="{% static 'js/jquery.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="{% static 'css/base.css'%}">
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
@@ -49,9 +50,17 @@
     <script src="//cdn.bootcss.com/layer/3.0.1/layer.min.js"></script>
     <link href="//cdn.bootcss.com/layer/3.0.1/skin/default/layer.css" rel="stylesheet">
 
+{#    <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>#}
+{#    <link rel="stylesheet" href="{% static 'css/prism.css' %}">#}
 
+{#    在线的markdown js解析库#}
+    <script src="{% static 'js/marked.min.js' %}"></script>
 
+<!-- 引入editor.md 的css和js -->
+    <link rel="stylesheet" href="{% static 'plugins/editor.md/css/editormd.min.css' %}">
+    <script src="{% static 'plugins/editor.md/editormd.min.js' %}"></script>
 
+    {% block script %}{% endblock script %}
 </head>
 
 <body>

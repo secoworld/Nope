@@ -415,12 +415,28 @@ body{
 .commet_list {
     background: #ddd;
     border-radius: 5px;
-    padding: 8px 10px 30px;
+    padding: 8px 10px ;
     border-left: 5px solid #55d620e6;
+    box-shadow: 3px 3px 2px #5a455a;
 }
 
-.comment-list .pull-right{
-    margin: -7px auto;
+.comment_childrens{
+    background: #ddd;
+    border-radius: 5px;
+    padding: 8px 10px;
+    border-left: 5px solid #55d620e6;
+    margin-left: 20px ;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    box-shadow: 3px 3px 5px #5a455a;
+}
+
+.comment-list-button{
+    width: 100%;
+    text-align: right;
+}
+.button-right{
+    width: 100px;
 }
 
 /* 解决图片过大的问题 */
