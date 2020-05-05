@@ -3,7 +3,7 @@
 
 <!-- 返回的关键字 -->
 {% block head_descript %}
-<meta name="Description" content="{{ essay.context|truncatechars:200 }}">
+    <meta name="Description" content="{{ essay.context|truncatechars:200 }}">
 {% endblock %}
 
 
@@ -11,215 +11,499 @@
 {% block title %} 刘龙韬的博客-文章：{{ essay.title }} {% endblock title %}
 <!-- 拓展标题结束 -->
 <!-- 拓展文章详情页 -->
-{% block body%}
-<div class="col-md-9">
-    <div class="row ">
-        <!-- 文章详细页面 -->
-        <div class="col-md-12 article-detail-group">
-            <!-- 文章的标题 -->
-            <div class="article-detail-header">
-                <h3>{{ essay.title }}</h3>
+{% block body %}
+    <div class="col-md-9">
+        <div class="row ">
+            <!-- 文章详细页面 -->
+            <div class="col-md-12 article-detail-group">
+                <!-- 文章的标题 -->
+                <div class="article-detail-header">
+                    <h3>{{ essay.title }}</h3>
 
-                <!-- 文章的作者、分类等 -->
-                <div class="article-detail-auth">
+                    <!-- 文章的作者、分类等 -->
+                    <div class="article-detail-auth">
+                        <ul>
+                            <li>日期: {{ essay.created_time|date:"Y/m/d" }}</li>
+                            <li>作者: <a href="#"> {{ essay.author }}</a></li>
+                            <li>分类: <a
+                                    href="{% url 'article:category' essay.category.urlname %}">{{ essay.category }}</a>
+                            </li>
+                            <li>阅读: {{ essay.views }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 文章内容 -->
+                <div class="article-detail-content">
+                    <!-- 在article的后面加入safe过滤器 -->
+                    {{ essay.context|safe }}
+                </div>
+
+                <!-- 版权说明 -->
+                <div class="article-detail-copyright">
                     <ul>
-                        <li>日期: {{ essay.created_time|date:"Y/m/d"}}</li>
-                        <li>作者: <a href="#"> {{ essay.author }}</a></li>
-                        <li>分类: <a href="{% url 'article:category' essay.category.urlname %}">{{  essay.category }}</a>
+                        <li><strong>网站名称: </strong><a href="http://www.liulongtao.com/">刘龙韬的博客</a></li>
+                        <li><strong>本文链接: </strong><a
+                                href="{% url 'article:detail' essay.id %}">www.liulongtao.com/aritcle/{{ essay.id }}</a>
                         </li>
-                        <li>阅读: {{ essay.views}}</li>
+                        <li><strong>版权声明: </strong>未经允许，禁止转载！</li>
                     </ul>
                 </div>
-            </div>
 
-            <!-- 文章内容 -->
-            <div class="article-detail-content">
-                <!-- 在article的后面加入safe过滤器 -->
-                {{ essay.context|safe }}
-            </div>
+                <!-- 其他文章 -->
+                <div class="article-detail-other">
+                    <h3>相关文章：</h3>
+                    <ol>
+                        <li>
+                            <label>上一篇：</label>
+                            {% if pre_blog %}
+                                <a href="{% url 'article:detail' pre_blog.id %}">{{ pre_blog.title }}</a>
+                            {% else %}
+                                不存在
+                            {% endif %}
+                        </li>
+                        <li>
+                            <label>下一篇：</label>
+                            {% if next_blog %}
+                                <a href="{% url 'article:detail' next_blog.id %}">{{ next_blog.title }}</a>
+                            {% else %}
+                                不存在
+                            {% endif %}
+                        </li>
 
-            <!-- 版权说明 -->
-            <div class="article-detail-copyright">
-                <ul>
-                    <li><strong>网站名称: </strong><a href="http://www.liulongtao.com/">刘龙韬的博客</a></li>
-                    <li><strong>本文链接: </strong><a
-                            href="{% url 'article:detail' essay.id %}">www.liulongtao.com/aritcle/{{ essay.id }}</a>
-                    </li>
-                    <li><strong>版权声明: </strong>未经允许，禁止转载！</li>
-                </ul>
-            </div>
-
-            <!-- 其他文章 -->
-            <div class="article-detail-other">
-                <h3>相关文章：</h3>
-                <ol>
-                    <li>
-                        <label>上一篇：</label>
-                        {% if pre_blog %}
-                        <a href="{% url 'article:detail' pre_blog.id %}">{{ pre_blog.title }}</a>
-                        {% else %}
-                        不存在
-                        {% endif %}
-                    </li>
-                    <li>
-                        <label>下一篇：</label>
-                        {% if next_blog %}
-                        <a href="{% url 'article:detail' next_blog.id %}">{{ next_blog.title }}</a>
-                        {% else %}
-                        不存在
-                        {% endif %}
-                    </li>
-
-                </ol>
-            </div>
-        </div>
-
-        <!-- 文章评论 -->
-        <div class="col-md-12 article-detail-comment">
-            <!-- 提交评论 -->
-            <h3>提交评论</h3>
-            <div class="commet-put">
-                <!-- <p>请先登录后进行评论</p> -->
-
-
-                {% if request.user.is_authenticated%}
-                <!-- 将post改为json传输数据的形式 -->
-                <form id="comment_sent" action="{% url 'article:detail' essay.id %}" method="post">
-                    {% csrf_token %}
-                    <div>
-                        <label> 评论内容</label>
-                        <div>
-                            <!-- {{ formtext.context }}
-                            {{ formtext.context.error }} -->
-                            {{ formtext.media }}
-                            {{ formtext.as_p }}
-                        </div>
-                        <span class="text_danger pull-left" id="comment_error"></span>
-                        <button type="button" id="btn_comment" class="btn btn-primary pull-right">提交</button>
-                    </div>
-                </form>
-                {% else %}
-                请先
-                <a href="{% url 'users:login' %}"><button type="button" class="btn btn-primary">登录</button></a>
-                后进行评论
-                {% endif %}
-
-
-
-            </div>
-            <!-- 全部评论 -->
-            <h3>评论列表</h3>
-            <div class="comment-list">
-                <!-- <p>该文章没有评论，赶紧进行评论吧！</p> -->
-                <h4>共有{{ comments.count }}评论</h4>
-                <div id="comment_dis">
-                    {% for comment in comments %}
-                    <hr>
-                    <div class="commet_list" id="commet_{{ comment.id }}">
-                        <p>
-                            <strong style="color: red">
-                                {{ comment.user }}
-                            </strong> 于
-                            <span style="color: green">
-                                {{ comment.created_time|date:"Y-m-d H:i:s" }}
-                            </span> 时说：
-                        </p>
-
-                        {{ comment.context|safe }}
-                        <a href="#"><button type="button" class="btn btn-primary pull-right"> 回复 </button></a>
-                        <!-- <a href="#comment_sent"><button type="button" class="btn btn-primary pull-right">  回复  </button></a> -->
-                    </div>
-
-                    {% endfor%}
+                    </ol>
                 </div>
+            </div>
 
-                <div class="row">
+            <!-- 文章评论 -->
+            <div class="col-md-12 article-detail-comment">
+                <!-- 提交评论 -->
+                <h3>提交评论</h3>
+                <div class="commet-put">
+                    <button type="button" id="new_comment_btn" class="btn btn-primary">提交评论</button>
+                    <!-- <p>请先登录后进行评论</p> -->
 
+                    {#                {% if request.user.is_authenticated%}#}
+                    <!-- 将post改为json传输数据的形式 -->
+                    {#                    <form id="comment_sent" action="{% url 'article:detail' essay.id %}" method="post">#}
+                    {#                        {% csrf_token %}#}
+                    {#                        <div>#}
+                    {#                            <label> 评论内容</label>#}
+                    {#                            <div class="row">#}
+                    {#                                <div class="col-sm-6">#}
+                    {#                                    <div class="row">#}
+                    {#                                        <div class="col-sm-2">#}
+                    {#                                            <label style="margin: auto; line-height: 34px">昵称:</label>#}
+                    {#                                        </div>#}
+                    {#                                        <div class="col-sm-8">#}
+                    {#                                            <input type="text" class="form-control" name="nickName" id="nickName"#}
+                    {#                                                   placeholder="昵称">#}
+                    {#                                        </div>#}
+                    {#                                    </div>#}
+                    {#                                </div>#}
+                    {#                                <div class="col-sm-6">#}
+                    {#                                    <div class="row">#}
+                    {#                                        <div class="col-sm-2">#}
+                    {#                                            <label style="margin: auto; line-height: 34px">邮箱:</label>#}
+                    {#                                        </div>#}
+                    {#                                        <div class="col-sm-8">#}
+                    {#                                            <input type="email" class="form-control" name="Email" id="Email"#}
+                    {#                                                   placeholder="昵称">#}
+                    {#                                        </div>#}
+                    {#                                    </div>#}
+                    {#                                </div>#}
+                    {##}
+                    {#                                <div class="col-sm-12">#}
+                    {#                                    <label>评论内容：</label>#}
+                    {#                                    <div id="comment_editor">#}
+                    {##}
+                    {#                                    </div>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {##}
+                    {##}
+                    {#                            <span class="text_danger pull-left" id="comment_error"></span>#}
+                    {#                            <button type="button" id="btn_comment" class="btn btn-primary pull-right">提交</button>#}
+                    {#                        </div>#}
+                    {#                    </form>#}
+                    {#                {% else %}#}
+                    {#                请先#}
+                    {#                <a href="{% url 'users:login' %}"><button type="button" class="btn btn-primary">登录</button></a>#}
+                    {#                后进行评论#}
+                    {#                {% endif %}#}
 
                 </div>
 
+                <!-- 全部评论 -->
+                <h3>评论列表</h3>
+                <div class="comment-list">
+                    <!-- <p>该文章没有评论，赶紧进行评论吧！</p> -->
+                    <h4>共有{{ comments.count }}评论</h4>
+                    <div id="comment_dis">
+                        {#                    {% for comment in comments %}#}
+                        {#                    <hr>#}
+                        {#                    <div class="commet_list" id="commet_{{ comment.id }}">#}
+                        {#                        <p>#}
+                        {#                            <strong style="color: #ff0000">#}
+                        {#                                {{ comment.user }}#}
+                        {#                            </strong> 于#}
+                        {#                            <span style="color: green">#}
+                        {#                                {{ comment.created_time|date:"Y-m-d H:i:s" }}#}
+                        {#                            </span> 时说：#}
+                        {#                        </p>#}
+                        {##}
+                        {#                        {{ comment.context|safe }}#}
+                        {#                        <button type="button" class="btn btn-primary pull-right"> 回复 </button>#}
+                        {#                        <!-- <a href="#comment_sent"><button type="button" class="btn btn-primary pull-right">  回复  </button></a> -->#}
+                        {#                    </div>#}
+                        {##}
+                        {#                    {% endfor%}#}
+                    </div>
 
-
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    {#   设置模态框 #}
+    <div class="modal  bs-example-modal-lg" id="reply_modal" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">回复留言</h4>
+                </div>
+                <div class="modal-body ">
+                    <div class="row">
+
+                        <div class="col-md-12 commet_list" id="reply_parent" style="display: none">
+                            <div><h4>回复评论：</h4></div>
+                            <div id="reply_on">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12 col-sm-12" style="margin-top: 20px; height: 500px; width: 100%">
+                            <h4> 评论内容:</h4>
+                            <form>
 
 
-<!-- javascript 实现ajax增加评论内容  -->
-<script>
-    // var comment=document.getElementById("id_context");
-    var comment = $("#id_context");
-    $("#btn_comment").click(function () {
-        $("#comment_error").text("");
-        // 如果输入的内容为空,提示输入相关的内容
-        if($("#id_context").val() == ""){
-            $("#comment_error").text("请输入不能为空");
-            return false;
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <label style="margin: auto; line-height: 34px">昵称:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="nickName" id="nickName"
+                                                       placeholder="昵称">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <label style="margin: auto; line-height: 34px">邮箱:</label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="email" class="form-control" name="Email" id="Email"
+                                                       placeholder="昵称">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <label>评论内容：</label>
+                                        <div id="comment_editor">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="reply_submit_btn">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block script %}
+{#        <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>#}
+{#        <link rel="stylesheet" href="{% static 'css/prism.css' %}">#}
+        <link rel="stylesheet" href="{% static 'css/tomorrow.css' %}">
+        <script src="{% static 'js/highlight.min.js' %}"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    {% endblock script %}
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script>
+        // var comment=document.getElementById("id_context");
+        var aid = '{{ essay.id }}'
+        var reply_id;
+        var reply_div;
+        var edit_md;
+        var comment_editor;
+
+        jQuery.noConflict();        // 清除多个jquery冲突
+        // 获取评论
+        getComments();
+
+        //解决Forbidden (CSRF token missing or incorrect.):错误
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+        })
+
+        // 配置marked.js的代码高亮
+        var rendererMD = new marked.Renderer();
+        marked.setOptions({
+            renderer: rendererMD,
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+            highlight: function (code) {
+                return hljs.highlightAuto(code).value;
+            }
+        });
+
+
+        var comment = $("#id_context");
+        $("#btn_comment").click(function () {
+            $("#comment_error").text("");
+            // 如果输入的内容为空,提示输入相关的内容
+            if ($("#id_context").val() == "") {
+                $("#comment_error").text("请输入不能为空");
+                return false;
+            }
+
+            // 打印textarea的值
+            console.log("评论的内容为:", $("#id_context").val());
+            console.log("forms发送的值为:", $("#comment_sent").serialize() + '&aid={{ essay.id }}');
+
+            $.ajax({
+                url: "{% url 'article:update_comment' %}",
+                type: 'post',
+                async: true,
+                data: $("#comment_sent").serialize() + '&aid={{ essay.id }}',
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] == 'success') {
+                        console.log("发送成功");
+                        var comment_html = $('<div class="commet_list" id="commet_' + data['commnet_id'] + '"></div>');
+                        // comment_html.before('<hr>');
+                        var phtml = $("<p></p>");
+                        phtml.append($('<strong style="color: pink"></strong>').text(data['username']));
+                        phtml.append('于');
+                        phtml.append($('<span style="color: green"></span').text(data['comment_time']));
+                        phtml.append("时说：");
+                        comment_html.append(phtml);
+                        comment_html.append(data['text']);
+                        comment_html.append($('<a href="#"></a>').append($('<button type="button" class="btn btn-primary pull-right"></button').text("回复")));
+
+                        // console.log("htnls=", htmls);
+                        $("#comment_dis").prepend(comment_html);
+                        $("#comment_dis").prepend($("<hr>"));
+
+                        // 清空输入框
+                        $("#id_context").val("");
+                        $("span .cm-link.cm-cm-overlay.cm-matchhighlight").text("");
+                        console.log("文本框中的内容为：", $("#id_context").val());
+                        console.log(data);
+                    } else {
+                        $("comment_error").text(data['message']);
+                        console.log("接收失败");
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    console.log("ajax访问失败!")
+                }
+            })
+        })
+
+        // 加载评论数据
+        function getComments() {
+            $.ajax({
+                url: "{% url 'article:get_comment'  essay.id %}",
+                type: 'get',
+                success: function (resp) {
+                    var comments = resp.comment;
+                    creat_comment_parent(comments)
+                }
+            })
         }
 
-        // 打印textarea的值
-        console.log("评论的内容为:", $("#id_context").val());
-        console.log("forms发送的值为:",$("#comment_sent").serialize()+'&aid={{ essay.id }}' );
 
-        $.ajax({
-            url : "{% url 'article:update_comment' %}",
-            type: 'post',
-            async: true,
-            data: $("#comment_sent").serialize()+'&aid={{ essay.id }}',
-            cache: false,
-            success: function (data) {
-                console.log(data);
-                if(data['status'] == 'success'){
-                    console.log("发送成功");
-                    var comment_html = $('<div class="commet_list" id="commet_'+data['commnet_id']+'"></div>');
-                    // comment_html.before('<hr>');
-                    var phtml = $("<p></p>");
-                    phtml.append($('<strong style="color: pink"></strong>').text(data['username']));
-                    phtml.append('于');
-                    phtml.append($('<span style="color: green"></span').text(data['comment_time']));
-                    phtml.append("时说：");
-                    comment_html.append(phtml);
-                    comment_html.append(data['text']);
-                    comment_html.append($('<a href="#"></a>').append($('<button type="button" class="btn btn-primary pull-right"></button').text("回复")));
+        // 设置多级加载的父元素
+        function creat_comment_parent(comments) {
+            var comment_div = $("#comment_dis");
+            comment_div.empty();
+            comments.forEach((comment) => {
+                var out_div = $("<div></div>");
+                var parent_div = $("<div></div>").addClass("commet_list comments");
+                created_comment_body(comment, parent_div);
+                out_div.append(parent_div);
+                if (comment.hasOwnProperty("childrens")) {
+                    creat_comment_childrens(comment.childrens, out_div);
+                }
+                out_div.append($("<hr>"))
+                comment_div.append(out_div);
+            })
+        }
 
-                    // console.log("htnls=", htmls);
-                    $("#comment_dis").prepend(comment_html);
-                    $("#comment_dis").prepend($("<hr>"));
+        // 设置多级加载的子元素
+        function creat_comment_childrens(childrens, out_div) {
+            if (childrens.length == 0) return "";
+            childrens.forEach((comment) => {
+                var parent_div = $("<div></div>").addClass("comment_childrens comments");
+                created_comment_body(comment, parent_div);
 
-                    // 清空输入框
-                    $("#id_context").val("");
-                    $("span .cm-link.cm-cm-overlay.cm-matchhighlight").text("");
-                    console.log("文本框中的内容为：",  $("#id_context").val() );
-                    console.log(data);
-                }else{
-                    $("comment_error").text(data['message']);
-                    console.log("接收失败");
-                }  
-              },
-              error: function(xhr){
-                  console.log(xhr);
-                  console.log("ajax访问失败!")
-              }
+                out_div.append(parent_div);
+                if (comment.hasOwnProperty("childrens")) {
+                    creat_comment_childrens(comment.childrens, out_div);
+                }
+                {#comment_div.append(out_div);#}
+            })
+        }
+
+        function created_comment_body(comment, parent_div) {
+            var parent_head = $("<p></p>").append($("<span id=\"comment_id\"></span>").attr("style", "display:none").text(comment.id));
+            var created_time = comment.created_time.replace("T", " ").slice(0, -5);
+            parent_head.append($("<strong></strong>").attr("style", "color:#ff0000").text(comment.name))
+                .append(" 于 ").append($("<strong></strong>").attr("style", "color: green").text(created_time)
+            ).append(" 时说:");
+            var parent_body = $("<div></div>").append(marked(comment.context));
+            var parent_foot = $("<div></div>").addClass("comment-list-button").append($("<button></button>")
+                .addClass("btn btn-primary button-right reply-btn").text("回复"));
+
+            parent_div.append(parent_head).append(parent_body).append(parent_foot);
+        }
+
+
+        // 点击回复按钮
+        $("#comment_dis").on('click', '.reply-btn', function () {
+
+            $('#reply_modal').modal('show');
+            clearCommentModal();
+            var show_div = $(this).closest(".comments");
+            $("#reply_parent").show();
+            {#var show_html = show_div.html().remove(".comment-list-button")#}
+            $("#reply_on").html(show_div.html());
+            $("#reply_on .comment-list-button").remove();
+            reply_id = show_div.find("#comment_id").text();
+            console.log(reply_id);
+            $("#edit_show").empty();
+            comment_editor = editorTemplate(comment_editor, "comment_editor");
         })
-    })
+
+        //点击添加新的评论
+        $("#new_comment_btn").click(function () {
+            $('#reply_modal').modal('show');
+            clearCommentModal();
+            reply_id = null;    //将回复的id设置为空
+            $("#edit_show").empty();
+            comment_editor = editorTemplate(comment_editor, "comment_editor");
+        })
+
+        // 点击回复按钮后
+        $("#reply_submit_btn").click(function () {
+            var nikename = $("#nickName").val();
+            var email = $("#Email").val();
+            var reg_email = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+            var parentId = reply_id == null ? -1 : reply_id;
+            var context = comment_editor.getMarkdown();
+            if (nikename == "" || email == "") {
+                alert("请输入昵称或密码！");
+                return false;
+            } else {
+                if (!reg_email.test(email)) {
+                    alert("邮箱格式错误！");
+                    return false;
+                }
+            }
+
+            if (context == "") {
+                alert("请输入评论内容！");
+                return false;
+            }
+
+            $.ajax({
+                url: "{% url 'article:update_comment' %}",
+                type: 'post',
+                async: true,
+                data: {
+                    aid: aid,
+                    name: nikename,
+                    email: email,
+                    parent_id: parentId,
+                    context: context
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.status == "success") {
+                        getComments();
+                        $('#reply_modal').modal('hide');
+                        console.log("添加评论成功！");
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: () => {
+                    console.log("评论上传失败！")
+                }
+            })
 
 
-</script>
+        })
+
+        function editorTemplate(editor_name, editor_id) {
+            editor_name = editormd(editor_id, {
+                // width: "100%",
+                height: "400px",
+                // markdown: "xxxx",     // dynamic set Markdown text
+                path: "{% static 'plugins/editor.md/lib/' %}",  // Autoload modules mode, codemirror, marked... dependents libs path
+            });
+
+            return editor_name;
+        }
+
+        {#$("#edit_show").resize();#}
+
+        function clearCommentModal() {
+            $("#nickName").val("");
+            $("#Email").val("");
+
+            $("#reply_on").empty();
+            $("#reply_parent").hide();
+            if (comment_editor != null) {
+                comment_editor.setValue("");
+            }
+        }
+
+    </script>
 
 {% endblock %}
 {% block right-menu-add %}
 
-<div class="panel panel-default ">
-    <div class="panel-heading">
-        目录
-    </div>
-    <div class="panel-body ">
-        <div class="right-show-toc">
-            {{ essay.toc|safe }}
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            目录
         </div>
+        <div class="panel-body ">
+            <div class="right-show-toc">
+                {{ essay.toc|safe }}
+            </div>
 
+        </div>
     </div>
-</div>
 
 {% endblock right-menu-add %}

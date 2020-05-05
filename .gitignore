@@ -66,4 +66,7 @@ migrations/*
 Log/
 env/
 venv/
+
 ./venv/
+config.json
+

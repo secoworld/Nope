@@ -12,6 +12,7 @@ urlpatterns =[
     path('search/', views.Search, name="search"),
     path('update/', views.update_comment, name="update_comment"),
     path('api/category/<urlname>', views.json_list, name="json_list"),
+    path('comments/<aid>', views.get_comments, name="get_comment"),
     path('', views.index, name="home"),
 ]
 

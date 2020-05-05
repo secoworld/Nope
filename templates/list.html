@@ -53,6 +53,7 @@
                                         aria-hidden="true"></span>评论：{{ article.comment.count}}</li>
 
                             </ul>
+
                         </div>
 
                     </div>
@@ -117,8 +118,15 @@
                         </li>
                         {% endif %}
                     </ul>
+                </nav>
+            </div>
 
-                    <script>
+        </div>
+
+    </div>
+
+</div>
+     <script>
                         $(document).ready(function () {
                             var urls = window.location.href;
                             if (urls.indexOf('?') != -1) {
@@ -173,12 +181,4 @@
                         })
                         });
                     </script>
-            </div>
-
-        </div>
-
-
-    </div>
-
-</div>
 {% endblock %}
