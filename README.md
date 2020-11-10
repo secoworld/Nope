@@ -89,10 +89,35 @@ cp config-template.json config.json
 - "PORT": 数据库的端口
 
 
+将数据库换成sqlite以外的数据库需要手动创建数据库`CREATE DATABASE database_name`,
+```
+CREATE DATABASE mysite CHARACTER SET utf8;
+```
 
-## 五、记录我在使用Django时候遇到的坑（遇到的问题，为什么会出现这些问题， 如何解决）
+需要通过模型生成数据表
+```shell
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## 五、运行工程
+
+1. 本地环境
+   如果是在本地环境下运行该服务。在根目录下，运行该工程的命令为：
+```shell
+python manage.py runserver
+```
+
+2. 在服务器上运行 
+   如果想要在服务器上运行，需要使用`uwsgi`，具体的部署过程请参考这篇文章：
+
+   [Django线上部署教程：腾讯云+Ubuntu+Django+Uwsgi](https://www.eastnotes.com/post/29)
+
+## 六、记录我在使用Django时候遇到的坑（遇到的问题，为什么会出现这些问题， 如何解决）
 1. 问题：在使用nginx时，已经申请了https链接，结果使用的时候依旧显示nginx的欢迎界面
-   解决办法：  将server 80的下的内容复制一份到server 443中即可。    
+   解决办法：  
+   
+   将server 80的下的内容复制一份到server 443中即可。    
    已经将成功的配置和方法复制到了nginx.conf 和 uwsgi/myblog.ini中
    
 
