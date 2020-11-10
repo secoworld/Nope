@@ -548,11 +548,11 @@ body{
 
 .m-title{
     margin: auto;
-    padding-left: 1em;
+    padding-left: 0.5em;
     text-align: left;
     font-size: 21px;
     font-weight: 200;
-    min-height: 40px;
+    border-left: 10px solid #f30711;
 }
 
 .m-content{
