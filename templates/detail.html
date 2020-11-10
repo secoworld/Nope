@@ -34,9 +34,15 @@
                 </div>
 
                 <!-- 文章内容 -->
-                <div class="article-detail-content">
+                <div class="article-detail-content" >
                     <!-- 在article的后面加入safe过滤器 -->
-                    {{ essay.context|safe }}
+                    <div id="display-content">
+
+                    </div>
+                    <textarea id="content" style="display: none;">
+                        {{ essay.context }}
+                    </textarea>
+                    
                 </div>
 
                 <!-- 版权说明 -->
@@ -237,9 +243,11 @@
         {#        <link rel="stylesheet" href="{% static 'css/prism.css' %}">#}
         <link rel="stylesheet" href="{% static 'css/tomorrow.css' %}">
         <script src="{% static 'js/highlight.min.js' %}"></script>
+        
         <script>hljs.initHighlightingOnLoad();</script>
     {% endblock script %}
 
+    <script src="{% static 'js/marked.min.js' %}"></script>
     <script src="{% static 'js/jquery.js' %}"></script>
     <script>
         // var comment=document.getElementById("id_context");
@@ -252,6 +260,9 @@
         jQuery.noConflict();        // 清除多个jquery冲突
         // 获取评论
         getComments();
+
+        // 将markdown格式的内容进行展示
+        $("#display-content").html(marked($.trim($("#content").val())));
 
         //解决Forbidden (CSRF token missing or incorrect.):错误
         $.ajaxSetup({

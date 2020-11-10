@@ -1,5 +1,6 @@
 
 from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.utils.html import strip_tags
 import json
 from .models import Article, Category, Tags, Carousel
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -61,6 +62,10 @@ def setPage(request, lists, num):
         lists = pages.get_page(pages.num_pages)  # 返回最后一页
     except:
         lists = pages.get_page(1)  # 返回首页
+    # 去除摘要中markdown的标识
+    for article in lists:
+        article.context =  strip_tags(markdown.markdown(article.context))
+
     lists.count = total     #返回文章的总数
     return lists, pages
 
@@ -87,7 +92,7 @@ def article_show(requset, aid):
         'markdown.extensions.toc',
     ])
 
-    essay.context = md.convert(essay.context)
+    # essay.context = md.convert(essay.context)
     essay.toc = md.toc
     # 观看人数需要保存到数据中，不然每次都会是1
     
