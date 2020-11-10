@@ -1,7 +1,0 @@
-{
-    "python.pythonPath": "D:\\Program Files (x86)\\Project\\Python\\python.exe",
-    "git.ignoreLimitWarning": true,
-    "files.watcherExclude": {
-        "**/target": true
-    }
-}

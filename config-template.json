@@ -1,0 +1,12 @@
+{
+    "dbconfig":{
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": "databsse name",
+            "HOST": "ip addr",
+            "USER": "usrname",
+            "PASSWORD": "password",
+            "PORT": "3306"
+        }
+    }
+}
