@@ -69,5 +69,6 @@ venv/
 
 ./venv/
 config.json
+.vscode
 
 !static/plugins/**/lib
