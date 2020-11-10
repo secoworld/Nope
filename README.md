@@ -19,16 +19,16 @@
 
 # 博客系统的安装配置
 ## 一、配置Python环境
-   * virtualenv 虚拟环境配置
-    Python安装`virtualenv`，并生成虚拟环境
-    ```
-    pip install virtualenv
-    python -m venv env
-    ```
-    启动虚拟环境
-    ```
-    .\env\Scripts\activate
-    ```
+* virtualenv 虚拟环境配置
+Python安装`virtualenv`，并生成虚拟环境
+```
+pip install virtualenv
+python -m venv env
+```
+启动虚拟环境
+```
+.\env\Scripts\activate
+```
 
 ## 二、恢复pip安装过的库
 在该项目中使用过的库的文件放在`Other/requirement.txt`
