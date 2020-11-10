@@ -103,12 +103,14 @@ python manage.py migrate
 ## 五、运行工程
 
 1. 本地环境
+   
    如果是在本地环境下运行该服务。在根目录下，运行该工程的命令为：
 ```shell
 python manage.py runserver
 ```
 
 2. 在服务器上运行 
+   
    如果想要在服务器上运行，需要使用`uwsgi`，具体的部署过程请参考这篇文章：
 
    [Django线上部署教程：腾讯云+Ubuntu+Django+Uwsgi](https://www.eastnotes.com/post/29)
