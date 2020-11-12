@@ -7,7 +7,7 @@
             <div class=" col-sm-4 ">
                 <div class="content">
                     <h3>本站内容</h3>
-                    <p>1. 本站创建时间：</p>
+                    <p>1. 本站运行时间：<span id="spend_time"></span></p>
                     <p>2. 本站使用Django搭建</p>
                     <p>3. 本站使用阿里云服务器</p>
                 </div>
@@ -24,11 +24,11 @@
                 <div class="content">
                     <h3>友链</h3>
                     {% if friendlink %}
-                        {% for link in friendlink %}
-                            <p><a href="{{ link.url }}">{{link.name}}</a></p>
-                        {% endfor %}
+                    {% for link in friendlink %}
+                    <p><a href="{{ link.url }}">{{link.name}}</a></p>
+                    {% endfor %}
                     {% else %}
-                        <p>暂无友链</p>
+                    <p>暂无友链</p>
                     {% endif %}
                 </div>
 
@@ -50,3 +50,29 @@
 
     <script src="{% static 'js/base.js' %}"></script>
 </div>
+
+<script>
+    // 计算建站时间
+    $(document).ready(function () {
+       var timer = setInterval(function(){
+        var spend = cal_build_date('2018-06-01');
+        $("#spend_time").text(spend);
+       }, 1000)
+    })
+
+    function cal_build_date(start_time) {
+        var build_date = new Date(start_time).getTime();
+        var now_date = new Date().getTime();
+        var spend = now_date - build_date;
+
+        //天时分秒
+        var days = Math.floor(spend / (24 * 3600 * 1000));
+        spend %= (24 * 3600 * 1000);
+        var hours = Math.floor(spend / (3600 * 1000));
+        spend %= (3600 * 1000);
+        var minutes = Math.floor(spend / (60 * 1000));
+        spend %= (60 * 1000);
+        var secs = Math.floor(spend / (1000));
+        return days + " 天 " + hours + " 时 " + minutes + " 分 " + secs + "秒";
+    }
+</script>
